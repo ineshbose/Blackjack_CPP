@@ -10,14 +10,13 @@
 
 using namespace std;
 
-
 void clrscr(){
     system("cls");
 }
 
 bool deal(Player &p1, Dealer &d1){
     bool player = p1.addCard();
-    bool dealer;
+    bool dealer = true;
     if(d1.getSum()<18){
         dealer = d1.addCard();
     }

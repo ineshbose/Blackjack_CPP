@@ -10,14 +10,12 @@ private:
     int sum, index, win;
 
 public:
-    Dealer()
-    {
+    Dealer(){
         index = 0;
         sum = 0;
         win = 0;
     }
-    int checkSum()
-    {
+    int checkSum(){
         if (sum > 21)
         {
             win = 2;
@@ -28,24 +26,23 @@ public:
         }
         return win;
     }
-    bool addCard()
-    {
+    bool addCard(){
         cards[index].dealCard();
         sum += cards[index].getNumber();
         index++;
         if (checkSum() == 2)
         {
-            cout << "\nDealer loses (" << getSum() << ")\n";
+            cout << "\nDealer got busted (" << getSum() << ")\n";
             return false;
         }
         else if (checkSum() == 3)
         {
             cout << "\nBlackjack!";
+            return false;
         }
         return true;
     }
-    int getSum()
-    {
+    int getSum(){
         return sum;
     }
 };

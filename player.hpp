@@ -13,16 +13,15 @@ private:
     int win;
 
 public:
-    Player(char pname[100])
-    {
+    Player(char pname[100]){
         strcpy(name, pname);
         index = 0;
         sum = 0;
+        bet = 0;
         cash = 5000;
         win = 0;
     }
-    int checkSum()
-    {
+    int checkSum(){
         if (sum > 21)
         {
             win = 2;
@@ -33,28 +32,23 @@ public:
         }
         return win;
     }
-    void printName()
-    {
+    void printName(){
         cout << name;
     }
-    bool addCard()
-    {
+    bool addCard(){
         cards[index].dealCard();
         sum += cards[index].getNumber();
         index++;
-        if (checkSum() == 2)
-        {
-            cout << "\nYou lose!";
+        if (checkSum() == 2){
+            cout << "\nYou got busted!";
             return false;
         }
-        else if (checkSum() == 3)
-        {
+        else if (checkSum() == 3){
             cout << "\nBlackjack!";
         }
         return true;
     }
-    int getSum()
-    {
+    int getSum(){
         return sum;
     }
 };
