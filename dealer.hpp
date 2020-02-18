@@ -6,7 +6,7 @@ using namespace std;
 class Dealer{
 
 private:
-    Card cards[5];
+    Card hand[5];
     int sum, index, win;
 
 public:
@@ -16,27 +16,23 @@ public:
         win = 0;
     }
     int checkSum(){
-        if (sum > 21)
-        {
+        if (sum > 21){
             win = 2;
         }
-        if (sum == 21)
-        {
+        if (sum == 21){
             win = 3;
         }
         return win;
     }
     bool addCard(){
-        cards[index].dealCard();
-        sum += cards[index].getNumber();
+        hand[index].dealCard();
+        sum += hand[index].getNumber();
         index++;
-        if (checkSum() == 2)
-        {
+        if (checkSum() == 2){
             cout << "\nDealer got busted (" << getSum() << ")\n";
             return false;
         }
-        else if (checkSum() == 3)
-        {
+        else if (checkSum() == 3){
             cout << "\nBlackjack!";
             return false;
         }

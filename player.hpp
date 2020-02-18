@@ -8,7 +8,7 @@ class Player{
 
 private:
     char name[100];
-    Card cards[5];
+    Card hand[5];
     int sum, cash, bet, index;
     int win;
 
@@ -22,12 +22,10 @@ public:
         win = 0;
     }
     int checkSum(){
-        if (sum > 21)
-        {
+        if (sum > 21){
             win = 2;
         }
-        if (sum == 21)
-        {
+        if (sum == 21){
             win = 3;
         }
         return win;
@@ -36,8 +34,8 @@ public:
         cout << name;
     }
     bool addCard(){
-        cards[index].dealCard();
-        sum += cards[index].getNumber();
+        hand[index].dealCard();
+        sum += hand[index].getNumber();
         index++;
         if (checkSum() == 2){
             cout << "\nYou got busted!";
