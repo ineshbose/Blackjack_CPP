@@ -26,16 +26,6 @@ void initializeDeck(vector<Card> &d){
     }
 }
 
-/*
-bool deal(Player &p1, Dealer &d1){
-    bool player = p1.addCard();
-    bool dealer = true;
-    if(d1.getSum()<18){
-        dealer = d1.addCard();
-    }
-    return (player && dealer);
-}
-*/
 void printDeck(vector<Card> d){
     for(int i=0;i<d.size();i++){
         cout<<d[i].getNumber()<<" ";
@@ -54,7 +44,7 @@ void printCards(vector<Card> &d){
     cout<<endl;
 }
 
-char compareSum(Player p, Dealer d){
+char compareSum(Player &p, Dealer &d){
     if(p.getSum()>d.getSum()){
         cout<<p.getName()<<" wins! (Dealer has "<<d.getSum()<<")";
         return 'p';
@@ -70,6 +60,7 @@ char compareSum(Player p, Dealer d){
 }
 
 bool checkEnd(Player p, Dealer d){
+    cout<<"\nChecking end..."<<p.getSum();
     if(d.getSum()>21 || p.getSum()>21){
         cout<<"\nBust! [Dealer: "<<d.getSum()<<", "<<p.getName()<<": "<<p.getSum()<<"]";
         return true;
@@ -115,7 +106,7 @@ int startGame(Player &p, Dealer &d, vector<Card> &deck){
     return 1;
 }
 
-bool dealDealer(Player p, Dealer &d, vector<Card> deck){
+bool dealDealer(Player &p, Dealer &d, vector<Card> &deck){
     while (d.getSum() < 18){
         d.addCard(deal(deck));
         if (checkEnd(p, d)){
@@ -123,6 +114,58 @@ bool dealDealer(Player p, Dealer &d, vector<Card> deck){
         }
     }
     return true;
+}
+
+void beginGame(Player &player, Dealer &dealer, vector<Card> &deck){
+    if(deck.size()<36){
+        cout<<"Reshuffling..\n";
+        initializeDeck(deck);
+    }
+    cout<<"Cards: "<<deck.size()<<endl;
+    player.clearCards();
+    dealer.clearCards();
+    int bet;
+    cout << "Place your bet!\n";
+    cout << player.getName() << " has $" << player.getCash() << "\nBet: ";
+    cin >> bet;
+    if (player.setBet(bet)){
+        if (startGame(player, dealer, deck) == 1){
+            if (dealDealer(player, dealer, deck)){
+                switch (compareSum(player, dealer)){
+                case 'p':
+                    player.incrementWins();
+                    break;
+                case 'd':
+                case 'e':
+                    break;
+                }
+            }
+            else{
+                //player.incrementWins();
+            }
+        }
+        else{
+            return;
+        }
+        cout << "\nYour wins: " << player.getWins();
+    }
+    else{
+        cout<<"You don't have enough cash.\n";
+        beginGame(player, dealer, deck);
+    }
+}
+
+void saveGame(Player p){
+    fstream f1;
+    char filename[50];
+    char path[100] = "Data/";
+    cout<<"Enter filename: ";
+    cin>>filename;
+    strcat(path, filename);
+    strcat(path, ".bin");
+    f1.open(path, ios::out | ios::binary);
+    f1.write((char*)&p, sizeof(p));
+    f1.close();
 }
 
 int main(){
@@ -135,57 +178,13 @@ int main(){
     initializeDeck(deck);
     Player player(name);
     Dealer dealer;
-    int bet;
-    cout<<"Place your bet!\n";
-    cout<<player.getName()<<" has $"<<player.getCash()<<"\nBet: ";
-    cin>>bet;
-    if(player.setBet(bet)){
-        if(startGame(player, dealer, deck)==1){
-            if(dealDealer(player, dealer, deck)){
-                switch(compareSum(player, dealer)){
-                    case 'p': player.incrementWins(); break;
-                    case 'd':
-                    case 'e': break;
-                }
-            } else{
-                //player.incrementWins();
-            }
-        }
-        cout<<"\nYour wins: "<<player.getWins();
+    char choice = 'Y';
+    while(choice=='Y' || choice=='y'){
+        clrscr();
+        beginGame(player, dealer, deck);
+        cout<<"\nContinue game? ";
+        cin>>choice;
     }
-    else{
-        main();
-    }
-    /*
-    cout << "Hello! What's your name?\n";
-    cin>>name;
-    Player player(name);
-    Dealer dealer;
-    clrscr();
-    cout<<"Hello "; player.printName();
-    while(hit!='N' && hit!='n'){
-        status = deal(player, dealer);
-        cout<<"\nYou hold: "<<player.getSum();
-        cout<<"\nDealer holds: "<<dealer.getSum();
-        if(status){
-            cout<<"\nHit? ";
-            cin>>hit;
-        }
-        else{
-            cout<<"\nGame ended.";
-            break;
-        }
-    }
-    if(status){
-        if(dealer.getSum()>player.getSum()){
-            cout<<"\nDealer wins!";
-        }
-        else if(dealer.getSum()<player.getSum()){
-            cout<<"\nYou win!";
-        }
-        else{
-            cout<<"\nNeutral.";
-        }
-    }*/
+    //saveGame(player);
     return 0;
 }
