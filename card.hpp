@@ -14,6 +14,10 @@ public:
         number = 0;
         suit = '\0';
     }
+    Card(int no, char s){
+        number = no;
+        suit = s;
+    }
     void setNumber(int no){
         number = no;
     }

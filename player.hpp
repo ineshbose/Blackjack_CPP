@@ -1,9 +1,5 @@
 #include <iostream>
 #include <string.h>
-#include <vector>
-#include <stdlib.h>
-
-using namespace std;
 
 class Player{
 
@@ -14,7 +10,13 @@ private:
     int wins;
 
 public:
-
+    Player(){
+        strcpy(name, "Unknown");
+        sum = 0;
+        bet = 0;
+        cash = 1000;
+        wins = 0;
+    }
     Player(char pname[100]){
         strcpy(name, pname);
         sum = 0;

@@ -5,17 +5,19 @@
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
-#include <tuple>
+//#include <tuple>
 #include "card.hpp"
 #include "dealer.hpp"
 #include "player.hpp"
+#include "deck.hpp"
+#include "game.hpp"
 
 using namespace std;
 
 void clrscr(){
     system("cls");
 }
-
+/*
 void initializeDeck(vector<Card> &d){
     char suits[4] = {'S','H','D','C'};
     for(int i=0;i<4;i++){
@@ -167,21 +169,25 @@ void saveGame(Player p){
     f1.write((char*)&p, sizeof(p));
     f1.close();
 }
-
+*/
 int main(){
 
     clrscr();
     srand(time(NULL));
 
     char name[100] = "Inesh";
-    vector<Card> deck(52);
-    initializeDeck(deck);
+    //vector<Card> deck(52);
+    //initializeDeck(deck);
     Player player(name);
     Dealer dealer;
+    Deck deck;
+    deck.initializeDeck();
+    Game game(player, dealer, deck);
     char choice = 'Y';
     while(choice=='Y' || choice=='y'){
         clrscr();
-        beginGame(player, dealer, deck);
+        //beginGame(player, dealer, deck);
+        game.beginGame();
         cout<<"\nContinue game? ";
         cin>>choice;
     }

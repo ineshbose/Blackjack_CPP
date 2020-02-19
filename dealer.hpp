@@ -28,4 +28,12 @@ public:
         hand.clear();
         sum = 0;
     }
+    void printCards();
 };
+
+void Dealer::printCards(){
+    for(int i=0;i<hand.size();i++){
+        hand[i].printCard();
+    }
+    cout<<endl;
+}
