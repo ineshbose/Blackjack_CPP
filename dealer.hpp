@@ -28,12 +28,45 @@ public:
         hand.clear();
         sum = 0;
     }
+    void printFirstCard(){
+        cout<<endl;
+        hand[0].printCard();
+        cout<<endl;
+    }
     void printCards();
 };
 
 void Dealer::printCards(){
+    cout<<endl;
+    // │ ─ └ ┐ ┘ ┌
+    for(int i=0;i<hand.size();i++){
+        //cout<<" ┌───────┐ ";
+        cout<<" +-------+ ";
+    }
+    cout<<endl;
+    for(int i=0;i<hand.size();i++){
+        cout<<" |       | ";
+    }
+    cout<<endl;
+    for(int i=0;i<hand.size();i++){
+        cout<<" |       | ";
+    }
+    cout<<endl;
     for(int i=0;i<hand.size();i++){
         hand[i].printCard();
+    }
+    cout<<endl;
+    for(int i=0;i<hand.size();i++){
+        cout<<" |       | ";
+    }
+    cout<<endl;
+    for(int i=0;i<hand.size();i++){
+        cout<<" |       | ";
+    }
+    cout<<endl;
+    for(int i=0;i<hand.size();i++){
+        //cout<<" └───────┘ ";
+        cout<<" +-------+ ";
     }
     cout<<endl;
 }

@@ -44,13 +44,26 @@ char Game::compareSum(){
 }
 
 bool Game::checkEnd(){
-    cout<<"\nChecking end..."<<player.getSum();
     if(dealer.getSum()>21 || player.getSum()>21){
         cout<<"\nBust! [Dealer: "<<dealer.getSum()<<", "<<player.getName()<<": "<<player.getSum()<<"]";
+        /*
+        if(dealer.getSum()>21){
+            return 'p';
+        }
+        else if(player.getSum()>21){
+            return 'd';
+        }*/
         return true;
     }
     else if(dealer.getSum()==21 || player.getSum()==21){
         cout<<"\nBlackjack! [Dealer: "<<dealer.getSum()<<", "<<player.getName()<<": "<<player.getSum()<<"]";
+        /*
+        if(dealer.getSum()==21){
+            return 'd';
+        }
+        else if(player.getSum()==21){
+            return 'p';
+        }*/
         return true;
     }
     return false;

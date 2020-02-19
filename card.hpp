@@ -31,7 +31,23 @@ public:
         return suit;
     }
     void printCard(){
-        cout<<"| "<<suit<<": "<<number<<" | ";
+        // ┌───────┐ 
+        cout<<" | "<<suit<<" : ";
+        switch(number){
+            case 1: cout<<"A"<<" | "; break;
+            case 10: cout<<10<<"| "; break;
+            case 11: cout<<"J"<<" | "; break;
+            case 12: cout<<"Q"<<" | "; break;
+            case 13: cout<<"K"<<" | "; break;
+            default: cout<<number<<" | ";
+        }
+        /*
+        if(number<10){
+            cout<<" | ";
+        }
+        else{
+            cout<<"| ";
+        }*/
     }
 
     void aceSwitch(bool up){
