@@ -119,11 +119,11 @@ bool Game::checkWins(){
 }
 
 void Game::beginGame(){
-    /*
+    
     if(deck.getSize()<36){
             cout<<"Reshuffling..\n";
             deck.initializeDeck();
-    }*/
+    }
     cout<<"Cards: "<<deck.getSize()<<endl;
     player.clearCards();
     dealer.clearCards();

@@ -41,6 +41,7 @@ public:
     }
 
     int getSum(){
+        switchAce();
         return sum;
     }
     int getWins(){
@@ -75,6 +76,7 @@ public:
         sum=0;
     }
     void printCards();
+    void switchAce();
 };
 
 void Player::addCard(Card c){
@@ -97,16 +99,16 @@ void Player::addCard(Card c){
             }
         }
     }*/
-    else if (c.getNumber()==1 && ((sum+11)<21)){
+    else if (c.getNumber()==1){
         c.setNumber(11);
-    }
+    }/*
     if(sum+c.getNumber()>21){
         for(int i=0;i<hand.size();i++){
             if(hand[i].getNumber()==1){
                 sum-=10;
             }
         }
-    }
+    }*/
     sum+= c.getNumber();
 }
 
@@ -143,4 +145,16 @@ void Player::printCards(){
         cout<<" +-------+ ";
     }
     cout<<endl;
+}
+
+void Player::switchAce(){
+    if(sum>21){
+    for(int i=0;i<hand.size();i++){
+            if(hand[i].getNumber()==1){
+                sum-=10;
+                //return true;
+            }
+    }
+    //return false;
+    }
 }
