@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <conio.h>
+#include <algorithm>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
@@ -31,11 +32,12 @@ int main(){
     Dealer dealer;
     Deck deck;
     deck.initializeDeck();
+    deck.printDeck();
     Game game(player, dealer, deck);
     char choice = 'Y';
-    while(choice=='Y' || choice=='y'){
+    while(choice!='N' && choice!='n'){
         clrscr();
-        cout<<Print::title_blackjack<<endl;
+        cout<<yellow<<Print::title_blackjack<<def<<endl;
         game.beginGame();
         cout<<"\nContinue game? ";
         cin>>choice;

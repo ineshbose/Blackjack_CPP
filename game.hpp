@@ -1,9 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
-//#include "player.hpp"
-//#include "dealer.hpp"
-//#include "deck.hpp"
 
 using namespace std;
 
@@ -19,8 +16,9 @@ class Game{
             deck = dec;
         }
         char compareSum();
-        bool checkEnd();
+        char checkEnd();
         Card deal();
+        bool checkWins();
         int startGame();
         bool dealDealer();
         void beginGame();
@@ -43,30 +41,26 @@ char Game::compareSum(){
     }
 }
 
-bool Game::checkEnd(){
+char Game::checkEnd(){
     if(dealer.getSum()>21 || player.getSum()>21){
         cout<<"\nBust! [Dealer: "<<dealer.getSum()<<", "<<player.getName()<<": "<<player.getSum()<<"]";
-        /*
         if(dealer.getSum()>21){
             return 'p';
         }
         else if(player.getSum()>21){
             return 'd';
-        }*/
-        return true;
+        }
     }
     else if(dealer.getSum()==21 || player.getSum()==21){
         cout<<"\nBlackjack! [Dealer: "<<dealer.getSum()<<", "<<player.getName()<<": "<<player.getSum()<<"]";
-        /*
         if(dealer.getSum()==21){
             return 'd';
         }
         else if(player.getSum()==21){
             return 'p';
-        }*/
-        return true;
+        }
     }
-    return false;
+    return 'f';
 }
 
 int Game::startGame(){
@@ -76,8 +70,8 @@ int Game::startGame(){
     player.addCard(deck.deal());
     dealer.addCard(deck.deal());
     player.printCards();
-    cout << player.getSum();
-    if(checkEnd()){
+    cout << "\nSum: "<<player.getSum();
+    if(checkWins()){
         return 0;
     }
     char choice;
@@ -86,8 +80,8 @@ int Game::startGame(){
     while(choice=='H' || choice=='h'){
         player.addCard(deck.deal());
         player.printCards();
-        cout<<player.getSum();
-        if (checkEnd()){
+        cout<<"\nSum: "<<player.getSum();
+        if (checkWins()){
             return 0;
         }
         cout << "\nHit or Stand? (H/S): ";
@@ -97,20 +91,39 @@ int Game::startGame(){
 }
 
 bool Game::dealDealer(){
-    while (dealer.getSum() < 18){
-        dealer.addCard(deck.deal());
-        if (checkEnd()){
+    if(dealer.getSum()<player.getSum()){
+        while (dealer.getSum() < 18){
+            dealer.addCard(deck.deal());
+            if (checkWins()){
+                return false;
+            }
+        }
+        return true;
+    }
+    else{
+        if(checkWins()){
             return false;
         }
+        return true;
     }
-    return true;
+}
+
+bool Game::checkWins(){
+    switch(checkEnd()){
+        case 'f': return false;
+        case 'd': player.incrementLoses(); return true;
+        case 'p': player.incrementWins();
+                  player.addCash((player.getBet()*2));
+                  return true;
+    }
 }
 
 void Game::beginGame(){
+    /*
     if(deck.getSize()<36){
             cout<<"Reshuffling..\n";
             deck.initializeDeck();
-    }
+    }*/
     cout<<"Cards: "<<deck.getSize()<<endl;
     player.clearCards();
     dealer.clearCards();
@@ -122,23 +135,23 @@ void Game::beginGame(){
         if (startGame() == 1){
             if (dealDealer()){
                 switch (compareSum()){
-                case 'p':
-                    player.incrementWins();
-                    break;
-                case 'd':
-                case 'e':
-                    break;
+                case 'p': player.incrementWins(); 
+                          player.addCash((player.getBet()*2));
+                          break;
+                case 'd': player.incrementLoses(); break;
+                case 'e': break;
                 }
-            }
+            }/*
             else{
                 //player.incrementWins();
             }
         }
         else{
-            return;
+            //return;
+        }*/
         }
         dealer.printCards();
-        cout << "\nYour wins: " << player.getWins();
+        cout << "\nYour wins: " << player.getWins()<<"\nYour loses: "<<player.getLoses();
     }
     else{
         cout<<"You don't have enough cash.\n";
