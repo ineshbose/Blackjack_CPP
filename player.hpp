@@ -84,31 +84,9 @@ void Player::addCard(Card c){
     if(c.getNumber()>10){
         c.setNumber(10);
     }
-    /*   Brain Storming Required Here for 'A'
-    else if (c.getNumber()==1){
-        if((sum+11)<21){
-            c.setNumber(11);
-        }
-        else{
-            int s=0;
-            for(int i=0;i<hand.size();i++){
-                s+=hand[i].getNumber();
-                if(hand[i].getNumber()==1 && s<sum){
-                    sum-=10;
-                }
-            }
-        }
-    }*/
     else if (c.getNumber()==1){
         c.setNumber(11);
-    }/*
-    if(sum+c.getNumber()>21){
-        for(int i=0;i<hand.size();i++){
-            if(hand[i].getNumber()==1){
-                sum-=10;
-            }
-        }
-    }*/
+    }
     sum+= c.getNumber();
 }
 
@@ -149,12 +127,12 @@ void Player::printCards(){
 
 void Player::switchAce(){
     if(sum>21){
-    for(int i=0;i<hand.size();i++){
-            if(hand[i].getNumber()==1){
-                sum-=10;
-                //return true;
-            }
-    }
-    //return false;
+        for(int i=0;i<hand.size();i++){
+                if(hand[i].getNumber()==1 && !(hand[i].getBlock())){
+                    hand[i].setBlock(true);
+                    sum-=10;
+                    return;
+                }
+        }
     }
 }

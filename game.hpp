@@ -69,6 +69,9 @@ int Game::startGame(){
     dealer.addCard(deck.deal());
     player.addCard(deck.deal());
     dealer.addCard(deck.deal());
+    cout<<"\n====== DEALER ========\n";
+    dealer.printFirstCard();
+    cout<<"\n======================\n";
     player.printCards();
     cout << "\nSum: "<<player.getSum();
     if(checkWins()){
@@ -119,7 +122,6 @@ bool Game::checkWins(){
 }
 
 void Game::beginGame(){
-    
     if(deck.getSize()<36){
             cout<<"Reshuffling..\n";
             deck.initializeDeck();
@@ -139,7 +141,7 @@ void Game::beginGame(){
                           player.addCash((player.getBet()*2));
                           break;
                 case 'd': player.incrementLoses(); break;
-                case 'e': break;
+                case 'n': player.addCash(player.getBet()); break;
                 }
             }/*
             else{
