@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <conio.h>
 #include <fstream>
+#include "print.hpp"
+#include "color.hpp"
 
 using namespace std;
 
@@ -21,9 +24,11 @@ class Game{
         bool checkWins();
         int startGame();
         bool dealDealer();
-        void beginGame();
+        void beginMenu(bool rep, char* message);
         void saveGame();
         void loadGame();
+        void startBet();
+        void beginGame();
 };
 
 char Game::compareSum(){
@@ -119,9 +124,80 @@ bool Game::checkWins(){
                   player.addCash((player.getBet()*2));
                   return true;
     }
+    return false;
+}
+
+void Game::startBet(){
+    int b;
+    cout<< "Place your bet!\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
+    //cout<< "Place your bet!"<<red<<"\n\t5\t25\t50\t100\t\n";
+    cin>>b;
+    if(player.getCash()>b){
+        switch(b){
+            case 5:
+            case 25:
+            case 50:
+            case 100: player.setBet(b); break;
+            default: cout<<red<<"Invalid amount.\n"<<def; startBet();
+        }
+    }
+    else{
+        cout<<red<<"Insufficient funds.\n"<<def;
+        startBet();
+    }
 }
 
 void Game::beginGame(){
+    char cont = 'Y';
+    while(cont!='N' && cont!='n'){
+        if(deck.getSize()<36){
+                cout<<"Reshuffling..\n";
+                deck.initializeDeck();
+        }
+        cout<<"Cards: "<<deck.getSize()<<endl;
+        player.clearCards();
+        dealer.clearCards();
+        startBet();
+        if (startGame() == 1){
+            if (dealDealer()){
+                switch (compareSum()){
+                case 'p': player.incrementWins(); 
+                          player.addCash((player.getBet()*2));
+                          break;
+                case 'd': player.incrementLoses(); break;
+                case 'n': player.addCash(player.getBet()); break;
+                }
+            }
+        }
+        dealer.printCards();
+        cout << "\nYour wins: " << player.getWins()<<"\nYour loses: "<<player.getLoses();
+        cout<<"\nContinue playing? [Y/N]: ";
+        cin>>cont;
+    }
+    char saveChoice;
+    cout<<"Save game? [Y/N]: ";
+    cin>>saveChoice;
+    if(saveChoice == 'Y' || saveChoice == 'y'){
+        saveGame();
+    }
+}
+
+void Game::beginMenu(bool rep, char* message){
+    system("cls");
+    cout<<yellow<<Print::title_blackjack<<def<<endl;
+    cout<<Print::begin_menu<<endl;
+    if(rep){
+        cout<<red<<message<<def<<endl;
+    }
+    int c;
+    cout<<"Input : ";
+    cin>>c;
+    switch(c){
+        case 1: beginGame(); break;
+        case 2: loadGame(); beginGame(); break;
+        case 3: exit(0); break;
+        default: beginMenu(true, "Invalid input.");
+    }
     if(deck.getSize()<36){
             cout<<"Reshuffling..\n";
             deck.initializeDeck();
@@ -129,11 +205,13 @@ void Game::beginGame(){
     cout<<"Cards: "<<deck.getSize()<<endl;
     player.clearCards();
     dealer.clearCards();
+    startBet();
+    /*
     int bet;
     cout << "Place your bet!\n";
     cout << player.getName() << " has $" << player.getCash() << "\nBet: ";
     cin >> bet;
-    if (player.setBet(bet)){
+    if (player.setBet(bet)){*/
         if (startGame() == 1){
             if (dealDealer()){
                 switch (compareSum()){
@@ -154,11 +232,11 @@ void Game::beginGame(){
         }
         dealer.printCards();
         cout << "\nYour wins: " << player.getWins()<<"\nYour loses: "<<player.getLoses();
-    }
+    /*}
     else{
         cout<<"You don't have enough cash.\n";
         beginGame();
-    }
+    }*/
 }
 
 void Game::saveGame(){
@@ -183,6 +261,11 @@ void Game::loadGame(){
     strcat(path, filename);
     strcat(path, ".bin");
     f1.open(path, ios::in | ios::binary);
-    f1.read((char*)&player, sizeof(player));
-    f1.close();
+    if(!f1.fail()){
+        f1.read((char*)&player, sizeof(player));
+        f1.close();
+    }
+    else{
+        beginMenu(true, "File does not exist.");
+    }
 }

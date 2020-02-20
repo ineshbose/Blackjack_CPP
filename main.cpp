@@ -14,8 +14,8 @@
 #include "player.hpp"
 #include "deck.hpp"
 #include "game.hpp"
-#include "print.hpp"
-#include "color.hpp"
+//#include "print.hpp"
+//#include "color.hpp"
 
 using namespace std;
 
@@ -35,13 +35,12 @@ int main(){
     deck.printDeck();
     Game game(player, dealer, deck);
     char choice = 'Y';
-    while(choice!='N' && choice!='n'){
-        clrscr();
-        cout<<yellow<<Print::title_blackjack<<def<<endl;
-        game.beginGame();
-        cout<<"\nContinue game? ";
-        cin>>choice;
-    }
+    //while(choice!='N' && choice!='n'){
+        //cout<<yellow<<Print::title_blackjack<<def<<endl;
+        game.beginMenu(false, "");
+        //cout<<"\nContinue game? ";
+        //cin>>choice;
+    //}
     //saveGame(player);*/
     return 0;
 }
