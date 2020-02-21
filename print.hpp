@@ -15,6 +15,10 @@ struct Print{
     static constexpr auto begin_menu = R"(
             1 - Start a New Game
             2 - Load from Game
-            3 - Exit
+            3 - Statistics // Not Yet
+            4 - How to Play // Not Yet
+            5 - Exit (3)
     )";
+
+    //static ostringstream statistics;
 };

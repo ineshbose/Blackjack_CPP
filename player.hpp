@@ -1,45 +1,36 @@
 #include <iostream>
 #include <string.h>
+#include <fstream>
 
 class Player{
 
 private:
-    char name[100];
+    string name;
     vector<Card> hand;
     int sum, cash, bet;
     int wins, loses;
 
 public:
     Player(){
-        strcpy(name, "Unknown");
+        name = "Unknown";
         sum = 0;
         bet = 0;
         cash = 1000;
         wins = 0;
         loses = 0;
     }
-
-    Player(char pname[100]){
-        strcpy(name, pname);
-        sum = 0;
-        bet = 0;
-        cash = 1000;
-        wins = 0;
-        loses = 0;
-    }
-    
-    char *getName(){
+    void setName(string nm){
+        name = nm;
+    }    
+    string getName(){
         return name;
     }
-
     int getBet(){
         return bet;
     }
-
     int getCash(){
         return cash;
     }
-
     int getSum(){
         switchAce();
         return sum;
@@ -56,7 +47,6 @@ public:
     void incrementLoses(){
         loses+=1;
     }
-
     bool setBet(int b){
         if(b<=cash){
             cash-=b;

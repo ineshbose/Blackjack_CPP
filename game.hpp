@@ -4,6 +4,10 @@
 #include <fstream>
 #include "print.hpp"
 #include "color.hpp"
+#include "card.hpp"
+#include "dealer.hpp"
+#include "player.hpp"
+#include "deck.hpp"
 
 using namespace std;
 
@@ -13,23 +17,23 @@ class Game{
         Dealer dealer;
         Deck deck;
     public:
-        Game(Player p, Dealer d, Deck dec){
-            player = p;
-            dealer = d;
-            deck = dec;
-        }
+        Game();
         char compareSum();
         char checkEnd();
         Card deal();
         bool checkWins();
         int startGame();
         bool dealDealer();
-        void beginMenu(bool rep, char* message);
+        void beginMenu(bool rep, string message);
         void saveGame();
         void loadGame();
         void startBet();
         void beginGame();
 };
+
+Game::Game(){
+    deck.initializeDeck();
+}
 
 char Game::compareSum(){
     if(player.getSum()>dealer.getSum()){
@@ -129,8 +133,7 @@ bool Game::checkWins(){
 
 void Game::startBet(){
     int b;
-    cout<< "Place your bet!\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
-    //cout<< "Place your bet!"<<red<<"\n\t5\t25\t50\t100\t\n";
+    cout<< "Place your bet!\t\tCash: $"<<player.getCash()<<"\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
     cin>>b;
     if(player.getCash()>b){
         switch(b){
@@ -150,6 +153,8 @@ void Game::startBet(){
 void Game::beginGame(){
     char cont = 'Y';
     while(cont!='N' && cont!='n'){
+        system("cls");
+        cout<<yellow<<Print::title_blackjack<<def<<endl;
         if(deck.getSize()<36){
                 cout<<"Reshuffling..\n";
                 deck.initializeDeck();
@@ -182,7 +187,7 @@ void Game::beginGame(){
     }
 }
 
-void Game::beginMenu(bool rep, char* message){
+void Game::beginMenu(bool rep, string message){
     system("cls");
     cout<<yellow<<Print::title_blackjack<<def<<endl;
     cout<<Print::begin_menu<<endl;
@@ -193,77 +198,72 @@ void Game::beginMenu(bool rep, char* message){
     cout<<"Input : ";
     cin>>c;
     switch(c){
-        case 1: beginGame(); break;
-        case 2: loadGame(); beginGame(); break;
-        case 3: exit(0); break;
+        case 1: char nm[100];
+                cout<<"Enter player name: ";
+                cin>>nm;
+                player.setName(nm);
+                beginGame();
+                break;
+        case 2: loadGame();
+                beginGame();
+                break;
+        case 3: exit(0);
+                break;
         default: beginMenu(true, "Invalid input.");
     }
-    if(deck.getSize()<36){
-            cout<<"Reshuffling..\n";
-            deck.initializeDeck();
-    }
-    cout<<"Cards: "<<deck.getSize()<<endl;
-    player.clearCards();
-    dealer.clearCards();
-    startBet();
-    /*
-    int bet;
-    cout << "Place your bet!\n";
-    cout << player.getName() << " has $" << player.getCash() << "\nBet: ";
-    cin >> bet;
-    if (player.setBet(bet)){*/
-        if (startGame() == 1){
-            if (dealDealer()){
-                switch (compareSum()){
-                case 'p': player.incrementWins(); 
-                          player.addCash((player.getBet()*2));
-                          break;
-                case 'd': player.incrementLoses(); break;
-                case 'n': player.addCash(player.getBet()); break;
-                }
-            }/*
-            else{
-                //player.incrementWins();
-            }
-        }
-        else{
-            //return;
-        }*/
-        }
-        dealer.printCards();
-        cout << "\nYour wins: " << player.getWins()<<"\nYour loses: "<<player.getLoses();
-    /*}
-    else{
-        cout<<"You don't have enough cash.\n";
-        beginGame();
-    }*/
 }
 
 void Game::saveGame(){
     fstream f1;
-    char filename[50];
-    char path[100] = "Data/";
+    string filename;
+    string path = "Data/";
     cout<<"Enter filename: ";
     cin>>filename;
-    strcat(path, filename);
-    strcat(path, ".bin");
+    path+=filename+".bin";
+    string sName = player.getName();
+    int sCash = player.getCash();
+    int sWins = player.getWins();
+    int sLoses = player.getLoses();
+    int nameSize = sName.size();
     f1.open(path, ios::out | ios::binary);
-    f1.write((char*)&player, sizeof(player));
+    f1.write((char*)&nameSize, sizeof(nameSize));
+    f1.write(sName.c_str(), sName.size());
+    f1.write((char*)&sCash, sizeof(sCash));
+    f1.write((char*)&sWins, sizeof(sWins));
+    f1.write((char*)&sLoses, sizeof(sLoses));
     f1.close();
 }
 
 void Game::loadGame(){
     fstream f1;
-    char filename[50];
-    char path[100] = "Data/";
+    Player dummy;
+    string filename;
+    string path = "Data/";
     cout<<"Enter filename: ";
     cin>>filename;
-    strcat(path, filename);
-    strcat(path, ".bin");
+    path+=filename+".bin";
     f1.open(path, ios::in | ios::binary);
     if(!f1.fail()){
-        f1.read((char*)&player, sizeof(player));
+        string sName;
+        int sCash;
+        int sWins;
+        int sLoses;
+        int nameSize;
+        f1.read((char*)&nameSize, sizeof(nameSize));
+        sName.resize(nameSize);
+        f1.read(&sName[0], sName.size());
+        f1.read((char*)&sCash, sizeof(sCash));
+        f1.read((char*)&sWins, sizeof(sWins));
+        f1.read((char*)&sLoses, sizeof(sLoses));
         f1.close();
+        player.setName(sName);
+        player.addCash(sCash - player.getCash());
+        while(player.getWins()!=sWins){
+            player.incrementWins();
+        }
+        while(player.getLoses()!=sLoses){
+            player.incrementLoses();
+        }
     }
     else{
         beginMenu(true, "File does not exist.");
