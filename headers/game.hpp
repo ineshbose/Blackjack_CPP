@@ -1,6 +1,4 @@
-#include <iostream>
 #include <vector>
-#include <conio.h>
 #include <fstream>
 #include "print.hpp"
 #include "color.hpp"
@@ -12,28 +10,54 @@
 using namespace std;
 
 class Game{
+
     private:
-        Player player;
-        Dealer dealer;
-        Deck deck;
+        Player player;   // Player in the game (user)
+        Dealer dealer;   // Dealer in the game
+        Deck deck;       // Deck of cards in the game
+
     public:
         Game();
-        char compareSum();
-        char checkEnd();
-        Card deal();
-        bool checkWins();
-        int startGame();
         bool dealDealer();
+        char compareSum();
+        bool checkWins();
+        char checkEnd();
+        void startBet();
+        int startGame();
+        void beginGame();
         void beginMenu(bool rep, string message);
         void saveGame();
         void loadGame();
-        void startBet();
-        void beginGame();
 };
+
+
+//////////////* Default Constructor *////
 
 Game::Game(){
     deck.initializeDeck();
 }
+
+//////////////* Deals dealer towards the end *////
+
+bool Game::dealDealer(){
+    if(dealer.getSum()<player.getSum()){
+        while (dealer.getSum() < 18){
+            dealer.addCard(deck.deal());
+            if (checkWins()){
+                return false;
+            }
+        }
+        return true;
+    }
+    else{
+        if(checkWins()){
+            return false;
+        }
+        return true;
+    }
+}
+
+//////////////* Checkers *////
 
 char Game::compareSum(){
     if(player.getSum()>dealer.getSum()){
@@ -48,6 +72,17 @@ char Game::compareSum(){
         cout<<"Draw!";
         return 'n';
     }
+}
+
+bool Game::checkWins(){
+    switch(checkEnd()){
+        case 'f': return false;
+        case 'd': player.incrementLoses(); return true;
+        case 'p': player.incrementWins();
+                  player.addCash((player.getBet()*2));
+                  return true;
+    }
+    return false;
 }
 
 char Game::checkEnd(){
@@ -70,6 +105,27 @@ char Game::checkEnd(){
         }
     }
     return 'f';
+}
+
+//////////////* Game Starters *////
+
+void Game::startBet(){
+    int b;
+    cout<< "Place your bet!\t\tCash: $"<<player.getCash()<<"\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
+    cin>>b;
+    if(player.getCash()>b){
+        switch(b){
+            case 5:
+            case 25:
+            case 50:
+            case 100: player.setBet(b); break;
+            default: cout<<red<<"Invalid amount.\n"<<def; startBet();
+        }
+    }
+    else{
+        cout<<red<<"Insufficient funds.\n"<<def;
+        startBet();
+    }
 }
 
 int Game::startGame(){
@@ -100,54 +156,6 @@ int Game::startGame(){
         cin >> choice;
     }
     return 1;
-}
-
-bool Game::dealDealer(){
-    if(dealer.getSum()<player.getSum()){
-        while (dealer.getSum() < 18){
-            dealer.addCard(deck.deal());
-            if (checkWins()){
-                return false;
-            }
-        }
-        return true;
-    }
-    else{
-        if(checkWins()){
-            return false;
-        }
-        return true;
-    }
-}
-
-bool Game::checkWins(){
-    switch(checkEnd()){
-        case 'f': return false;
-        case 'd': player.incrementLoses(); return true;
-        case 'p': player.incrementWins();
-                  player.addCash((player.getBet()*2));
-                  return true;
-    }
-    return false;
-}
-
-void Game::startBet(){
-    int b;
-    cout<< "Place your bet!\t\tCash: $"<<player.getCash()<<"\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
-    cin>>b;
-    if(player.getCash()>b){
-        switch(b){
-            case 5:
-            case 25:
-            case 50:
-            case 100: player.setBet(b); break;
-            default: cout<<red<<"Invalid amount.\n"<<def; startBet();
-        }
-    }
-    else{
-        cout<<red<<"Insufficient funds.\n"<<def;
-        startBet();
-    }
 }
 
 void Game::beginGame(){
@@ -187,6 +195,8 @@ void Game::beginGame(){
     }
 }
 
+//////////////* Main Method to be Called *////
+
 void Game::beginMenu(bool rep, string message){
     system("cls");
     cout<<yellow<<Print::title_blackjack<<def<<endl;
@@ -213,10 +223,12 @@ void Game::beginMenu(bool rep, string message){
     }
 }
 
+//////////////* Data File Handling *////
+
 void Game::saveGame(){
     fstream f1;
     string filename;
-    string path = "Data/";
+    string path = "data/";
     cout<<"Enter filename: ";
     cin>>filename;
     path+=filename+".bin";
@@ -238,7 +250,7 @@ void Game::loadGame(){
     fstream f1;
     Player dummy;
     string filename;
-    string path = "Data/";
+    string path = "data/";
     cout<<"Enter filename: ";
     cin>>filename;
     path+=filename+".bin";

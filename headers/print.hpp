@@ -1,6 +1,5 @@
-#include <iostream>
-
 struct Print{
+
     static constexpr auto title_blackjack = R"(
      /$$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$   /$$    /$$$$$  /$$$$$$   /$$$$$$  /$$   /$$
     | $$__  $$| $$       /$$__  $$ /$$__  $$| $$  /$$/   |__  $$ /$$__  $$ /$$__  $$| $$  /$$/
@@ -21,4 +20,5 @@ struct Print{
     )";
 
     //static ostringstream statistics;
+    
 };

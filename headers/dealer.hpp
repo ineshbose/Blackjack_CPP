@@ -1,33 +1,44 @@
-#include <iostream>
-#include <vector>
-#include <stdlib.h>
-
-using namespace std;
-
 class Dealer{
+    
+    private:
+        vector<Card> hand; // Dealer's Cards
+        int sum;           // Cards' Sum
 
-private:
-    vector<Card> hand;
-    int sum;
-
-public:
-    Dealer(){
-        sum = 0;
-    }
-    int getSum(){
-        switchAce();
-        return sum;
-    }
-    void clearCards(){
-        hand.clear();
-        sum = 0;
-    }
-    void printFirstCard();
-    void addCard(Card c);
-    void printCards();
-    void switchAce();
+    public:
+        Dealer();
+        int getSum();
+        void switchAce();
+        void addCard(Card c);
+        void printFirstCard();
+        void clearCards();
+        void printCards();
 };
 
+// Default Constructor
+Dealer::Dealer(){
+    sum = 0;
+}
+
+// Getter Function for sum to check end of game
+int Dealer::getSum(){
+    switchAce();
+    return sum;
+}
+
+// Switches Ace between 1 and 11
+void Dealer::switchAce(){
+    if(sum>21){
+        for(int i=0;i<hand.size();i++){
+                if(hand[i].getNumber()==1 && !(hand[i].getBlock())){
+                    hand[i].setBlock(true);
+                    sum-=10;
+                    return;
+                }
+        }
+    }
+}
+
+// Adds card to dealer's hand
 void Dealer::addCard(Card c){
     hand.push_back(c);
     if(c.getNumber()>10){
@@ -39,11 +50,10 @@ void Dealer::addCard(Card c){
     sum+= c.getNumber();
 }
 
+// Prints first card revealed and second card hidden
 void Dealer::printFirstCard(){
     cout<<endl;
-    // │ ─ └ ┐ ┘ ┌
     for(int i=0;i<2;i++){
-        //cout<<" ┌───────┐ ";
         cout<<" +-------+ ";
     }
     cout<<endl;
@@ -67,21 +77,21 @@ void Dealer::printFirstCard(){
     }
     cout<<endl;
     for(int i=0;i<2;i++){
-        //cout<<" └───────┘ ";
         cout<<" +-------+ ";
     }
     cout<<endl;
-    /*
-    cout<<"\n +-------+ \n |       | \n |       | \n";
-    hand[0].printCard();
-    cout<<"\n |       | \n |       | \n +-------+ ";*/
 }
 
+// Clears dealer's hand
+void Dealer::clearCards(){
+    hand.clear();
+    sum = 0;
+}
+
+// Prints dealer's cards
 void Dealer::printCards(){
     cout<<endl;
-    // │ ─ └ ┐ ┘ ┌
     for(int i=0;i<hand.size();i++){
-        //cout<<" ┌───────┐ ";
         cout<<" +-------+ ";
     }
     cout<<endl;
@@ -106,20 +116,7 @@ void Dealer::printCards(){
     }
     cout<<endl;
     for(int i=0;i<hand.size();i++){
-        //cout<<" └───────┘ ";
         cout<<" +-------+ ";
     }
     cout<<endl;
-}
-
-void Dealer::switchAce(){
-    if(sum>21){
-        for(int i=0;i<hand.size();i++){
-                if(hand[i].getNumber()==1 && !(hand[i].getBlock())){
-                    hand[i].setBlock(true);
-                    sum-=10;
-                    return;
-                }
-        }
-    }
 }

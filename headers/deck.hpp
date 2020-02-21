@@ -1,19 +1,17 @@
-#include <iostream>
 #include <algorithm>
-#include <vector>
 
 class Deck{
+
     private:
-        vector<Card> deck;
+        vector<Card> deck; // Deck (Vector) of Cards
+
     public:
-        int getSize(){
-            return deck.size();
-        }
         void initializeDeck();
-        void printDeck();
+        int getSize();
         Card deal();
 };
 
+// Constructs a Deck
 void Deck::initializeDeck(){
     deck.clear();
     char suits[4] = {'S','H','D','C'};
@@ -26,13 +24,12 @@ void Deck::initializeDeck(){
     random_shuffle(deck.begin(), deck.end());
 }
 
-void Deck::printDeck(){
-    for(int i=0;i<deck.size();i++){
-        cout<<deck[i].getNumber()<<" ";
-    }
-    cout<<endl;
+// Getter Function for size of deck
+int Deck::getSize(){
+    return deck.size();
 }
 
+// Deals by returning one card from the deck
 Card Deck::deal(){
     int val = (rand()%(deck.size()));
     Card t = deck[val];
