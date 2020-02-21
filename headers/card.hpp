@@ -39,15 +39,34 @@ class Card{
             block = b;
         }
         // Printing Card Details
-        void printCard(){
-            cout<<" | "<<suit<<" : ";
+        char getPrintNumber(){
             switch(number){
-                case 1: cout<<"A"<<" | "; break;
-                case 10: cout<<10<<"| "; break;
-                case 11: cout<<"J"<<" | "; break;
-                case 12: cout<<"Q"<<" | "; break;
-                case 13: cout<<"K"<<" | "; break;
-                default: cout<<number<<" | ";
+                case 1: return 'A';
+                case 10: return 'X';
+                case 11: return 'J';
+                case 12: return 'Q';
+                case 13: return 'K';
+                default: char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+                         return digits[number];
+            }
+        }
+        void printCardL1(){
+            switch(suit){
+                case 'C': cout<<"| :(): |"; break;
+                case 'H': cout<<"| (\\/) |"; break;
+                case 'D':
+                case 'S': cout<<"| :/\\: |"; break;
+                default : cout<<"|  //  |";
+            }
+        }
+
+        void printCardL2(){
+            switch(suit){
+                case 'C': cout<<"| ()() |"; break;
+                case 'H':
+                case 'D': cout<<"| :\\/: |"; break;
+                case 'S': cout<<"| (__) |"; break;
+                default : cout<<"|  //  |";
             }
         }
 };

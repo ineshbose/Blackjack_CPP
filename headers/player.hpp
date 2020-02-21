@@ -141,31 +141,27 @@ void Player::clearCards(){
 void Player::printCards(){
     cout<<endl;
     for(int i=0;i<hand.size();i++){
-        cout<<" +-------+ ";
+        cout<<".------.";
     }
     cout<<endl;
     for(int i=0;i<hand.size();i++){
-        cout<<" |       | ";
+        cout<<"|"<<hand[i].getPrintNumber()<<".--. |";
     }
     cout<<endl;
     for(int i=0;i<hand.size();i++){
-        cout<<" |       | ";
+        hand[i].printCardL1();
     }
     cout<<endl;
     for(int i=0;i<hand.size();i++){
-        hand[i].printCard();
+        hand[i].printCardL2();
     }
     cout<<endl;
     for(int i=0;i<hand.size();i++){
-        cout<<" |       | ";
+        cout<<"| '--'"<<hand[i].getPrintNumber()<<"|";
     }
     cout<<endl;
     for(int i=0;i<hand.size();i++){
-        cout<<" |       | ";
-    }
-    cout<<endl;
-    for(int i=0;i<hand.size();i++){
-        cout<<" +-------+ ";
+        cout<<"`------'";
     }
     cout<<endl;
 }
