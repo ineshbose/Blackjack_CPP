@@ -7,7 +7,6 @@ using namespace std;
 
 int main(){
 
-    system("cls");      // Clears terminal ("cls" works on Windows)
     srand(time(NULL));  // To seed rand() function across all files
 
     Game game;          // Constructs object GAME

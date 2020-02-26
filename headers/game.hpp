@@ -1,12 +1,12 @@
 #include <vector>
 #include <fstream>
-#include <conio.h>
 #include "print.hpp"
 #include "color.hpp"
 #include "card.hpp"
 #include "dealer.hpp"
 #include "player.hpp"
 #include "deck.hpp"
+#include "compatible.hpp"
 
 using namespace std;
 
@@ -186,7 +186,7 @@ void Game::beginGame(){
         dealer.printCards();
         cout<<lightCyan<<Print::player_border<<def;
         player.printCards();
-        cout << yellow << "\nYour wins: " << player.getWins()<< lightRed <<"\nYour loses: "<<player.getLoses()<<def<<endl;
+        cout << yellow << "\nYour wins: " << player.getWins()<< lightRed <<"\nYour loses: "<<player.getLoses()<<def<<"\n";
         cout<<"\nContinue playing? [Y/N]: ";
         cin>>cont;
     }
@@ -201,11 +201,11 @@ void Game::beginGame(){
 //////////////* Main Method to be Called *////
 
 void Game::beginMenu(bool rep, string message){
-    system("cls");
-    cout<<yellow<<Print::title_blackjack<<def<<endl;
-    cout<<Print::begin_menu<<endl;
+    clearscr();
+    cout<<yellow<<Print::title_blackjack<<def<<"\n";
+    cout<<Print::begin_menu<<"\n";
     if(rep){
-        cout<<red<<message<<def<<endl;
+        cout<<red<<message<<def<<"\n";
     }
     int c;
     cout<<"Input : ";
@@ -301,15 +301,15 @@ void Game::loadGame(){
 //////////////* Printing Stuff *////
 
 void Game::printInstructions(){
-    system("cls");
-    cout<<yellow<<Print::title_blackjack<<def<<endl;
-    cout<<endl<<lightGreen<<Print::instructions<<def<<endl;
+    clearscr();
+    cout<<yellow<<Print::title_blackjack<<def<<"\n";
+    cout<<"\n"<<lightGreen<<Print::instructions<<def<<"\n";
     getch();
 }
 
 void Game::printTop(){
-    system("cls");
-    cout<<yellow<<Print::title_blackjack<<def<<endl;
+    clearscr();
+    cout<<yellow<<Print::title_blackjack<<def<<"\n";
     cout<<lightRed<<"\t\tCards: "<<deck.getSize()<<lightGreen<<"\t\tCash: "<<player.getCash()<<lightBlue<<"\t\tName: "<<player.getName()<<def<<"\n\n\n";
 }
 

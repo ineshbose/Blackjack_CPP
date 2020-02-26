@@ -52,13 +52,13 @@ void Dealer::addCard(Card c){
 
 // Prints first card revealed and second card hidden
 void Dealer::printFirstCard(){
-    cout<<endl;
-    cout<<".------..------."<<endl;
-    cout<<"|"<<hand[0].getPrintNumber()<<".--. || .--. |"<<endl;
-    hand[0].printCardL1(); cout<<"|  //  |"<<endl;
-    hand[0].printCardL2(); cout<<"|  //  |"<<endl;
-    cout<<"| '--'"<<hand[0].getPrintNumber()<<"|| '--' |"<<endl;
-    cout<<"`------'`------'"<<endl;
+    cout<<"\n";
+    cout<<".------..------."<<"\n";
+    cout<<"|"<<hand[0].getPrintNumber()<<".--. || .--. |"<<"\n";
+    hand[0].printCardL1(); cout<<"|  //  |"<<"\n";
+    hand[0].printCardL2(); cout<<"|  //  |"<<"\n";
+    cout<<"| '--'"<<hand[0].getPrintNumber()<<"|| '--' |"<<"\n";
+    cout<<"`------'`------'"<<"\n";
 }
 
 // Clears dealer's hand
@@ -69,29 +69,29 @@ void Dealer::clearCards(){
 
 // Prints dealer's cards
 void Dealer::printCards(){
-    cout<<endl;
+    cout<<"\n";
     for(int i=0;i<hand.size();i++){
         cout<<".------.";
     }
-    cout<<endl;
+    cout<<"\n";
     for(int i=0;i<hand.size();i++){
         cout<<"|"<<hand[i].getPrintNumber()<<".--. |";
     }
-    cout<<endl;
+    cout<<"\n";
     for(int i=0;i<hand.size();i++){
         hand[i].printCardL1();
     }
-    cout<<endl;
+    cout<<"\n";
     for(int i=0;i<hand.size();i++){
         hand[i].printCardL2();
     }
-    cout<<endl;
+    cout<<"\n";
     for(int i=0;i<hand.size();i++){
         cout<<"| '--'"<<hand[i].getPrintNumber()<<"|";
     }
-    cout<<endl;
+    cout<<"\n";
     for(int i=0;i<hand.size();i++){
         cout<<"`------'";
     }
-    cout<<endl;
+    cout<<"\n";
 }
