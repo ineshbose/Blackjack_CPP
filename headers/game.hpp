@@ -45,7 +45,7 @@ Game::Game(){
 
 bool Game::dealDealer(){
     if(dealer.getSum()<player.getSum()){
-        while (dealer.getSum() < 18){
+        while (dealer.getSum() < 17){
             dealer.addCard(deck.deal());
             if (checkWins()){
                 return false;
