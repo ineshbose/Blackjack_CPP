@@ -7,6 +7,7 @@
 #include "player.hpp"
 #include "deck.hpp"
 #include "compatible.hpp"
+#include "statistics.hpp"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ class Game{
         Player player;   // Player in the game (user)
         Dealer dealer;   // Dealer in the game
         Deck deck;       // Deck of cards in the game
+        Statistics s;    // Leaderboard
 
     public:
         Game();
@@ -29,6 +31,7 @@ class Game{
         void beginMenu(bool rep, string message);
         void saveGame();
         void loadGame();
+        void printStatistics();
         void printInstructions();
         void printTop();
         void printBody();
@@ -187,6 +190,9 @@ void Game::beginGame(){
         cout<<lightCyan<<Print::player_border<<def;
         player.printCards();
         cout << yellow << "\nYour wins: " << player.getWins()<< lightRed <<"\nYour loses: "<<player.getLoses()<<def<<"\n";
+        if(s.check(player)){
+            cout<< lightYellow << "High Score!\n"<<def;
+        }
         cout<<"\nContinue playing? [Y/N]: ";
         cin>>cont;
     }
@@ -220,10 +226,13 @@ void Game::beginMenu(bool rep, string message){
         case 2: loadGame();
                 beginGame();
                 break;
-        case 3: printInstructions();
+        case 3: printStatistics();
                 beginMenu(false, "");
                 break;
-        case 4: exit(0);
+        case 4: printInstructions();
+                beginMenu(false, "");
+                break;
+        case 5: exit(0);
                 break;
         default: beginMenu(true, "Invalid input.");
     }
@@ -235,8 +244,11 @@ void Game::saveGame(){
     fstream f1,f2;
     string filename;
     string path = "data/";
+    do{
     cout<<"Enter filename: ";
     cin>>filename;
+    transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+    }while(filename.compare("statistics")==0);
     path+=filename+".bin";
     string sName = player.getName();
     int sCash = player.getCash();
@@ -264,11 +276,11 @@ void Game::saveGame(){
 
 void Game::loadGame(){
     fstream f1;
-    Player dummy;
     string filename;
     string path = "data/";
     cout<<"Enter filename: ";
     cin>>filename;
+    transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
     path+=filename+".bin";
     f1.open(path, ios::in | ios::binary);
     if(!f1.fail()){
@@ -299,6 +311,15 @@ void Game::loadGame(){
 }
 
 //////////////* Printing Stuff *////
+
+void Game::printStatistics(){
+    clearscr();
+    cout<<yellow<<Print::title_blackjack<<def<<"\n";
+    cout<<"\n"<<lightGreen<<Print::statistics<<def<<"\n";
+    s.print();
+    cout<<"\n\n\t(Press any key to continue)\n";
+    getch();
+}
 
 void Game::printInstructions(){
     clearscr();

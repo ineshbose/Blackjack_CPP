@@ -140,28 +140,17 @@ void Player::clearCards(){
 // Prints player's cards
 void Player::printCards(){
     cout<<"\n";
-    for(int i=0;i<hand.size();i++){
-        cout<<".------.";
+    for(int i=0;i<6;i++){
+        for(int j=0;j<hand.size();j++){
+            switch(i){
+                case 0: cout<<".------."; break;
+                case 1: cout<<"|"<<hand[j].getPrintNumber()<<".--. |"; break;
+                case 2: hand[j].printCardL1(); break;
+                case 3: hand[j].printCardL2(); break;
+                case 4: cout<<"| '--'"<<hand[j].getPrintNumber()<<"|"; break;
+                case 5: cout<<"`------'";
+            }
+        }
+        cout<<"\n";
     }
-    cout<<"\n";
-    for(int i=0;i<hand.size();i++){
-        cout<<"|"<<hand[i].getPrintNumber()<<".--. |";
-    }
-    cout<<"\n";
-    for(int i=0;i<hand.size();i++){
-        hand[i].printCardL1();
-    }
-    cout<<"\n";
-    for(int i=0;i<hand.size();i++){
-        hand[i].printCardL2();
-    }
-    cout<<"\n";
-    for(int i=0;i<hand.size();i++){
-        cout<<"| '--'"<<hand[i].getPrintNumber()<<"|";
-    }
-    cout<<"\n";
-    for(int i=0;i<hand.size();i++){
-        cout<<"`------'";
-    }
-    cout<<"\n";
 }

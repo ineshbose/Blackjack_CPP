@@ -14,11 +14,19 @@ struct Print{
     static constexpr auto begin_menu = R"(
             1 - Start a New Game
             2 - Load from Game
-            3 - How to Play
-            4 - Exit
+            3 - Statistics
+            4 - How to Play
+            5 - Exit
     )";
 
-    //static ostringstream statistics;
+    static constexpr auto statistics = R"(
+     ____  ____  __  ____  __  ____  ____  __  ___  ____ 
+    / ___)(_  _)/ _\(_  _)(  )/ ___)(_  _)(  )/ __)/ ___)
+    \___ \  )( /    \ )(   )( \___ \  )(   )(( (__ \___ \
+    (____/ (__)\_/\_/(__) (__)(____/ (__) (__)\___)(____/
+
+    
+    )";
     
     static constexpr auto instructions = R"(
             .-"-._,-'_`-._,-'_`-._,-'_`-._,-'_`-,_,-'_`-,_,-'_`-,_,-'_`-,_,-'_`-,_,-'_`-,.
