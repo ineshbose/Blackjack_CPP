@@ -1,3 +1,5 @@
+#include<iomanip>
+
 class PlayerSet{
 
     private:
@@ -61,7 +63,6 @@ class Statistics{
 
     private:
         PlayerSet p[3];                 // 3 Players
-        int maxCash, maxWins, maxLoses; // High Scores
 
     public:
         Statistics();
@@ -84,24 +85,21 @@ Statistics::Statistics(){
         temp.close();
         loadStats();
     }
-    maxCash = p[0].getCash();
-    maxWins = p[1].getWins();
-    maxLoses = p[2].getLoses();
 }
 
 //////////////* Checks for High Score & Saves *////
 
 bool Statistics::check(Player pl){
     bool rewrite = false;
-    if(pl.getCash()>maxCash){
+    if(pl.getCash()>p[0].getCash()){
         p[0].setValues(pl.getName(), pl.getCash(), pl.getWins(), pl.getLoses());
         rewrite = true;
     }
-    if(pl.getWins()>maxWins){
+    if(pl.getWins()>p[1].getWins()){
         p[1].setValues(pl.getName(), pl.getCash(), pl.getWins(), pl.getLoses());
         rewrite = true;
     }
-    if(pl.getLoses()>maxLoses){
+    if(pl.getLoses()>p[2].getLoses()){
         p[2].setValues(pl.getName(), pl.getCash(), pl.getWins(), pl.getLoses());
         rewrite = true;
     }
@@ -114,13 +112,14 @@ bool Statistics::check(Player pl){
 //////////////* Printing *////
 
 void Statistics::print(){
+    int maxlength = max(max(p[0].getName().length(), p[1].getName().length()),p[2].getName().length());
     for(int i=0;i<3;i++){
         switch(i){
             case 0: cout<<"MAX CASH  ||||||||| "; break;
             case 1: cout<<"MAX WINS  ||||||||| "; break;
             case 2: cout<<"MAX LOSES ||||||||| ";
         }
-        cout<<p[i].getName()<<"\t | \t"<<lightGreen<<"Cash: "<<p[i].getCash()<<"\t | \t"<<yellow<<"Wins: "<<p[i].getWins()<<"\t | \t"<<lightRed<<"Loses: "<<p[i].getLoses()<<def<<"\n";
+        cout<<setw(maxlength+1)<<p[i].getName()<<"\t | \t"<<lightGreen<<"Cash: "<<setw(7)<<p[i].getCash()<<"\t | \t"<<yellow<<"Wins: "<<setw(5)<<p[i].getWins()<<"\t | \t"<<lightRed<<"Loses: "<<setw(5)<<p[i].getLoses()<<def<<"\n";
     }
 }
 
