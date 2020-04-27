@@ -213,27 +213,27 @@ void Game::beginMenu(bool rep, string message){
     if(rep){
         cout<<red<<message<<def<<"\n";
     }
-    int c;
+    char c;
     cout<<"Input : ";
     cin>>c;
     switch(c){
-        case 1: char nm[100];
-                cout<<"Enter player name: ";
-                cin>>nm;
-                player.setName(nm);
-                beginGame();
-                break;
-        case 2: loadGame();
-                beginGame();
-                break;
-        case 3: printStatistics();
-                beginMenu(false, "");
-                break;
-        case 4: printInstructions();
-                beginMenu(false, "");
-                break;
-        case 5: exit(0);
-                break;
+        case '1': char nm[100];
+                  cout<<"Enter player name: ";
+                  cin>>nm;
+                  player.setName(nm);
+                  beginGame();
+                  break;
+        case '2': loadGame();
+                  beginGame();
+                  break;
+        case '3': printStatistics();
+                  beginMenu(false, "");
+                  break;
+        case '4': printInstructions();
+                  beginMenu(false, "");
+                  break;
+        case '5': exit(0);
+                  break;
         default: beginMenu(true, "Invalid input.");
     }
 }
@@ -278,9 +278,11 @@ void Game::loadGame(){
     fstream f1;
     string filename;
     string path = "data/";
+    do{
     cout<<"Enter filename: ";
     cin>>filename;
     transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+    }while(filename.compare("statistics")==0);
     path+=filename+".bin";
     f1.open(path, ios::in | ios::binary);
     if(!f1.fail()){

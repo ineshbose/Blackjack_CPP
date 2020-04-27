@@ -33,6 +33,10 @@ Hopefully, you can also compile `main.cpp` using an IDE.
 #### Linux
 You **must** have a gcc or g++ compiler which can be installed using
 ```
+$ sudo apt-get install clang
+```
+or
+```
 $ sudo apt-get install build-essential
 ```
 and then compile and run (assuming the file is named `a.out`) using
