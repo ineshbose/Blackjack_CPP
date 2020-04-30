@@ -1,15 +1,6 @@
 #include <algorithm>
-
-class Deck{
-
-    private:
-        vector<Card> deck; // Deck (Vector) of Cards
-
-    public:
-        void initializeDeck();
-        int getSize();
-        Card deal();
-};
+#include "deck.hpp"
+#include "card.hpp"
 
 // Constructs a Deck
 void Deck::initializeDeck(){
@@ -21,7 +12,7 @@ void Deck::initializeDeck(){
             deck.push_back(c);
         }
     }
-    random_shuffle(deck.begin(), deck.end());
+    std::random_shuffle(deck.begin(), deck.end());
 }
 
 // Getter Function for size of deck

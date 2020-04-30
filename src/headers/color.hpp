@@ -1,6 +1,4 @@
-#include <iostream>
-
-using namespace std;
+#include <ostream>
 
 namespace Color{
 enum class Code{

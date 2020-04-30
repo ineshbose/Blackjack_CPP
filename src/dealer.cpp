@@ -1,18 +1,8 @@
-class Dealer{
-    
-    private:
-        vector<Card> hand; // Dealer's Cards
-        int sum;           // Cards' Sum
+#include "dealer.hpp"
+#include "card.hpp"
+#include<iostream>
 
-    public:
-        Dealer();
-        int getSum();
-        void switchAce();
-        void addCard(Card c);
-        void printFirstCard();
-        void clearCards();
-        void printCards();
-};
+using namespace std;
 
 // Default Constructor
 Dealer::Dealer(){

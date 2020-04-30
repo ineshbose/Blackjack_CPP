@@ -1,5 +1,8 @@
 #include <vector>
 #include <fstream>
+#include <iostream>
+#include <time.h>
+#include <algorithm>
 #include "print.hpp"
 #include "color.hpp"
 #include "card.hpp"
@@ -9,34 +12,9 @@
 #include "compatible.hpp"
 #include "statistics.hpp"
 
+#include "game.hpp"
+
 using namespace std;
-
-class Game{
-
-    private:
-        Player player;   // Player in the game (user)
-        Dealer dealer;   // Dealer in the game
-        Deck deck;       // Deck of cards in the game
-        Statistics s;    // Leaderboard
-
-    public:
-        Game();
-        bool dealDealer();
-        char compareSum();
-        bool checkWins();
-        char checkEnd();
-        void startBet();
-        int startGame();
-        void beginGame();
-        void beginMenu(bool rep, string message);
-        void saveGame();
-        void loadGame();
-        void printStatistics();
-        void printInstructions();
-        void printTop();
-        void printBody();
-};
-
 
 //////////////* Default Constructor *////
 
@@ -69,17 +47,17 @@ bool Game::dealDealer(){
 char Game::compareSum(){
     if(player.getSum()>dealer.getSum()){
         printTop();
-        cout<<lightYellow<<Print::you_win<<def<<"\n    (Dealer has "<<dealer.getSum()<<")";
+        cout<<lightYellow<<Print::you_win()<<def<<"\n    (Dealer has "<<dealer.getSum()<<")";
         return 'p';
     }
     else if(dealer.getSum()>player.getSum()){
         printTop();
-        cout<<lightRed<<Print::dealer_wins<<def<<"\n    ("<<dealer.getSum()<<")";
+        cout<<lightRed<<Print::dealer_wins()<<def<<"\n    ("<<dealer.getSum()<<")";
         return 'd';
     }
     else{
         printTop();
-        cout<<lightMagenta<<Print::draw<<def;
+        cout<<lightMagenta<<Print::draw()<<def;
         return 'n';
     }
 }
@@ -98,7 +76,7 @@ bool Game::checkWins(){
 char Game::checkEnd(){
     if(dealer.getSum()>21 || player.getSum()>21){
         printTop();
-        cout<<red<<Print::bust<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
+        cout<<red<<Print::bust()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
         if(dealer.getSum()>21){
             return 'p';
         }
@@ -108,7 +86,7 @@ char Game::checkEnd(){
     }
     else if(dealer.getSum()==21 || player.getSum()==21){
         printTop();
-        cout<<lightGreen<<Print::blackjack<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
+        cout<<lightGreen<<Print::blackjack()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
         if(dealer.getSum()==21){
             return 'd';
         }
@@ -185,9 +163,9 @@ void Game::beginGame(){
                 }
             }
         }
-        cout<<lightRed<<Print::dealer_border<<def;
+        cout<<lightRed<<Print::dealer_border()<<def;
         dealer.printCards();
-        cout<<lightCyan<<Print::player_border<<def;
+        cout<<lightCyan<<Print::player_border()<<def;
         player.printCards();
         cout << yellow << "\nYour wins: " << player.getWins()<< lightRed <<"\nYour loses: "<<player.getLoses()<<def<<"\n";
         if(s.check(player)){
@@ -208,8 +186,8 @@ void Game::beginGame(){
 
 void Game::beginMenu(bool rep, string message){
     clearscr();
-    cout<<yellow<<Print::title_blackjack<<def<<"\n";
-    cout<<Print::begin_menu<<"\n";
+    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
+    cout<<Print::begin_menu()<<"\n";
     if(rep){
         cout<<red<<message<<def<<"\n";
     }
@@ -316,8 +294,8 @@ void Game::loadGame(){
 
 void Game::printStatistics(){
     clearscr();
-    cout<<yellow<<Print::title_blackjack<<def<<"\n";
-    cout<<"\n"<<lightGreen<<Print::statistics<<def<<"\n";
+    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
+    cout<<"\n"<<lightGreen<<Print::statistics()<<def<<"\n";
     s.print();
     cout<<"\n\n\t(Press any key to continue)\n";
     getch();
@@ -325,22 +303,33 @@ void Game::printStatistics(){
 
 void Game::printInstructions(){
     clearscr();
-    cout<<yellow<<Print::title_blackjack<<def<<"\n";
-    cout<<"\n"<<lightGreen<<Print::instructions<<def<<"\n";
+    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
+    cout<<"\n"<<lightGreen<<Print::instructions()<<def<<"\n";
     getch();
 }
 
 void Game::printTop(){
     clearscr();
-    cout<<yellow<<Print::title_blackjack<<def<<"\n";
+    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
     cout<<lightRed<<"\t\tCards: "<<deck.getSize()<<lightGreen<<"\t\tCash: "<<player.getCash()<<lightBlue<<"\t\tName: "<<player.getName()<<def<<"\n\n\n";
 }
 
 void Game::printBody(){
     printTop();
-    cout<<lightRed<<Print::dealer_border<<def;
+    cout<<lightRed<<Print::dealer_border()<<def;
     dealer.printFirstCard();
-    cout<<lightCyan<<Print::player_border<<def;
+    cout<<lightCyan<<Print::player_border()<<def;
     player.printCards();
     cout << lightGreen<< "\nSum: "<<lightRed<< player.getSum()<<def;
+}
+
+int main(){
+
+    srand(time(NULL));  // To seed rand() function across all files
+
+    Game game;          // Constructs object GAME
+    game.beginMenu(false, "");  // Begins with the interface
+
+    return 0;           // Return integer value at end of main()
+
 }

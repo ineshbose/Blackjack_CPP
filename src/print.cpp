@@ -1,6 +1,10 @@
-struct Print{
+#include <sstream>
+#include "print.hpp"
 
-    static constexpr auto title_blackjack = R"(
+using namespace std;
+
+string Print::title_blackjack(){
+    constexpr auto title_blackjack = R"(
      /$$$$$$$  /$$        /$$$$$$   /$$$$$$  /$$   /$$    /$$$$$  /$$$$$$   /$$$$$$  /$$   /$$
     | $$__  $$| $$       /$$__  $$ /$$__  $$| $$  /$$/   |__  $$ /$$__  $$ /$$__  $$| $$  /$$/
     | $$  \ $$| $$      | $$  \ $$| $$  \__/| $$ /$$/       | $$| $$  \ $$| $$  \__/| $$ /$$/ 
@@ -11,24 +15,41 @@ struct Print{
     |_______/ |________/|__/  |__/ \______/ |__/  \__/ \______/ |__/  |__/ \______/ |__/  \__/
     )";
 
-    static constexpr auto begin_menu = R"(
+    ostringstream toReturn;
+    toReturn << title_blackjack;
+    return toReturn.str();
+
+}
+
+string Print::begin_menu(){
+    constexpr auto begin_menu = R"(
             1 - Start a New Game
             2 - Load from Game
             3 - Statistics
             4 - How to Play
             5 - Exit
     )";
+    
+    ostringstream toReturn;
+    toReturn << begin_menu;
+    return toReturn.str();
+}
 
-    static constexpr auto statistics = R"(
+string Print::statistics(){
+    constexpr auto statistics = R"(
      ____  ____  __  ____  __  ____  ____  __  ___  ____ 
     / ___)(_  _)/ _\(_  _)(  )/ ___)(_  _)(  )/ __)/ ___)
     \___ \  )( /    \ )(   )( \___ \  )(   )(( (__ \___ \
     (____/ (__)\_/\_/(__) (__)(____/ (__) (__)\___)(____/
-
-    
     )";
     
-    static constexpr auto instructions = R"(
+    ostringstream toReturn;
+    toReturn << statistics << "\n\n";
+    return toReturn.str();
+}
+    
+string Print::instructions(){
+    constexpr auto instructions = R"(
             .-"-._,-'_`-._,-'_`-._,-'_`-._,-'_`-,_,-'_`-,_,-'_`-,_,-'_`-,_,-'_`-,_,-'_`-,.
             (  ,-'_,-<.>-'_,-<.>-'_,-<.>-'_,-<.>-'_,-<.>-'_,-<.>-'_,-<.>-'_,-<.>-'_,-~-} ;.
             \ \.'_>-._`-<_>-._`-<_>-._`-<_>-._`-<_>-._`-<_>-._`-<_>-._`-<_>-._`-._~--. \ .
@@ -61,14 +82,26 @@ struct Print{
                 `-' `-._,-' `-._,-' `-._,-' `-._,-' `-._,-' `-._,-' `-._,-' `-._,-' `-.-' .
     )";
 
-    static constexpr auto bust = R"(
+    ostringstream toReturn;
+    toReturn << instructions;
+    return toReturn.str();
+}
+
+string Print::bust(){
+    constexpr auto bust = R"(
      ___            _    _ 
     | _ ) _  _  ___| |_ | |
     | _ \| || |(_-<|  _||_|
     |___/ \_,_|/__/ \__|(_)        
     )";
 
-    static constexpr auto blackjack = R"(
+    ostringstream toReturn;
+    toReturn << bust;
+    return toReturn.str();
+}
+
+string Print::blackjack(){
+    constexpr auto blackjack = R"(
      ___  _            _     _            _    _ 
     | _ )| | __ _  __ | |__ (_) __ _  __ | |__| |
     | _ \| |/ _` |/ _|| / / | |/ _` |/ _|| / /|_|
@@ -76,37 +109,70 @@ struct Print{
                           |__/                   
     )";
 
-    static constexpr auto dealer_wins = R"(
+    ostringstream toReturn;
+    toReturn << blackjack;
+    return toReturn.str();
+}
+
+string Print::dealer_wins(){
+    constexpr auto dealer_wins = R"(
      ___           _                  _           
     |   \ ___ __ _| |___ _ _  __ __ _(_)_ _  ___  
     | |) / -_/ _` | / -_| '_| \ V  V | | ' \(_-<_ 
     |___/\___\__,_|_\___|_|    \_/\_/|_|_||_/__(_)                                            
     )";
 
-    static constexpr auto you_win = R"(
+    ostringstream toReturn;
+    toReturn << dealer_wins;
+    return toReturn.str();
+}
+
+string Print::you_win(){
+    constexpr auto you_win = R"(
     __   __                    _        _ 
     \ \ / /___  _  _  __ __ __(_) _ _  | |
      \ V // _ \| || | \ V  V /| || ' \ |_|
       |_| \___/ \_,_|  \_/\_/ |_||_||_|(_)
     )";
 
-    static constexpr auto draw = R"(
+    ostringstream toReturn;
+    toReturn << you_win;
+    return toReturn.str();
+}
+
+string Print::draw(){
+    constexpr auto draw = R"(
      ___            _     _ 
     | _ \ _  _  ___| |_  | |
     |  _/| || |(_-<| ' \ |_|
     |_|   \_,_|/__/|_||_|(_)
     )";
 
-    static constexpr auto dealer_border = R"(
+    ostringstream toReturn;
+    toReturn << draw;
+    return toReturn.str();
+}
+
+string Print::dealer_border(){
+    constexpr auto dealer_border = R"(
                      _  __ _     __ _ 
 /)/)/)/)/)/)/)/)/)  | \|_ |_||  |_ |_)  /)/)/)/)/)/)/)/)/)
 (/(/(/(/(/(/(/(/(/  |_/|__| ||__|__| \  (/(/(/(/(/(/(/(/(/  
     )";
 
-    static constexpr auto player_border = R"(
+    ostringstream toReturn;
+    toReturn << dealer_border;
+    return toReturn.str();
+}
+
+string Print::player_border(){
+    constexpr auto player_border = R"(
                      _     _     __ _ 
 /)/)/)/)/)/)/)/)/)  |_)|  |_|\/ |_ |_)  /)/)/)/)/)/)/)/)/)
 (/(/(/(/(/(/(/(/(/  |  |__| | | |__| \  (/(/(/(/(/(/(/(/(/                          
     )";
 
-};
+    ostringstream toReturn;
+    toReturn << player_border;
+    return toReturn.str();
+}
