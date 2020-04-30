@@ -1,4 +1,4 @@
-# Blackjack (C++)
+# Blackjack (C++) ![GitHub](https://img.shields.io/github/license/ineshbose/Blackjack_CPP?style=flat-square)
 Developed in order to repolish my C++ skills and as my first C++ repository. Have had many memories playing blackjack while being drunk with flatmates during the first year of uni.
 
 <center>
@@ -32,10 +32,6 @@ Hopefully, you can also compile `main.cpp` using an IDE.
 
 #### Linux
 You **must** have a gcc or g++ compiler which can be installed using
-```
-$ sudo apt-get install clang
-```
-or
 ```
 $ sudo apt-get install build-essential
 ```
