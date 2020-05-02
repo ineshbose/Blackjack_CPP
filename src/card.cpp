@@ -1,4 +1,5 @@
-#include "card.hpp"
+#include "headers/card.h"
+#include <iostream>
 
 Card::Card(){
     number = 0;
@@ -46,20 +47,20 @@ char Card::getPrintNumber(){
 }
 void Card::printCardL1(){
     switch(suit){
-        case 'C': cout<<"| :(): |"; break;
-        case 'H': cout<<"| (\\/) |"; break;
+        case 'C': std::cout<<"| :(): |"; break;
+        case 'H': std::cout<<"| (\\/) |"; break;
         case 'D':
-        case 'S': cout<<"| :/\\: |"; break;
-        default : cout<<"|  //  |";
+        case 'S': std::cout<<"| :/\\: |"; break;
+        default : std::cout<<"|  //  |";
     }
 }
 
 void Card::printCardL2(){
     switch(suit){
-        case 'C': cout<<"| ()() |"; break;
+        case 'C': std::cout<<"| ()() |"; break;
         case 'H':
-        case 'D': cout<<"| :\\/: |"; break;
-        case 'S': cout<<"| (__) |"; break;
-        default : cout<<"|  //  |";
+        case 'D': std::cout<<"| :\\/: |"; break;
+        case 'S': std::cout<<"| (__) |"; break;
+        default : std::cout<<"|  //  |";
     }
 }

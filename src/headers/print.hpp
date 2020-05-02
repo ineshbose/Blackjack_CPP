@@ -1,15 +1,17 @@
+#include <string>
+
 struct Print{
 
-    static string title_blackjack();
-    static string begin_menu();
-    static string statistics();
-    static string instructions();
-    static string bust();
-    static string blackjack();
-    static string dealer_wins();
-    static string you_win();
-    static string draw();
-    static string dealer_border();
-    static string player_border();
+    static std::string title_blackjack();
+    static std::string begin_menu();
+    static std::string statistics();
+    static std::string instructions();
+    static std::string bust();
+    static std::string blackjack();
+    static std::string dealer_wins();
+    static std::string you_win();
+    static std::string draw();
+    static std::string dealer_border();
+    static std::string player_border();
 
 };

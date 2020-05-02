@@ -1,7 +1,10 @@
+#include <vector>
+#include "card.h"
+
 class Deck{
 
     private:
-        vector<Card> deck; // Deck (Vector) of Cards
+        std::vector<Card> deck; // Deck (Vector) of Cards
 
     public:
         void initializeDeck();

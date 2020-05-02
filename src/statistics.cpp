@@ -1,11 +1,7 @@
-#include<iomanip>
-#include<fstream>
 #include <iostream>
-#include "player.hpp"
-#include "color.hpp"
-#include "statistics.hpp"
-
-using namespace std;
+#include <iomanip>
+#include <fstream>
+#include "headers/statistics.hpp"
 
 //////////////* Default Constructor *////
 
@@ -19,7 +15,7 @@ PlayerSet::PlayerSet(){
 //////////////* Getter Functions *////
 
 // Returns name of Player
-string PlayerSet::getName(){
+std::string PlayerSet::getName(){
     return name;
 }
 
@@ -40,7 +36,7 @@ int PlayerSet::getLoses(){
 
 //////////////* Setter Function *////
 
-void PlayerSet::setValues(string nm, int c, int w, int l){
+void PlayerSet::setValues(std::string nm, int c, int w, int l){
     name = nm;
     cash = c;
     wins = w;
@@ -53,8 +49,8 @@ void PlayerSet::setValues(string nm, int c, int w, int l){
 //////////////* Default Constructor *////
 
 Statistics::Statistics(){
-    fstream temp;
-    temp.open("data/statistics.bin", ios::in | ios::binary);
+    std::fstream temp;
+    temp.open("data/statistics.bin", std::ios::in | std::ios::binary);
     if(temp.fail()){
         saveStats();
     }
@@ -89,24 +85,24 @@ bool Statistics::check(Player pl){
 //////////////* Printing *////
 
 void Statistics::print(){
-    int maxlength = max(max(p[0].getName().length(), p[1].getName().length()),p[2].getName().length());
+    int maxlength = std::max(std::max(p[0].getName().length(), p[1].getName().length()),p[2].getName().length());
     for(int i=0;i<3;i++){
         switch(i){
-            case 0: cout<<"MAX CASH  ||||||||| "; break;
-            case 1: cout<<"MAX WINS  ||||||||| "; break;
-            case 2: cout<<"MAX LOSES ||||||||| ";
+            case 0: std::cout<<"MAX CASH  ||||||||| "; break;
+            case 1: std::cout<<"MAX WINS  ||||||||| "; break;
+            case 2: std::cout<<"MAX LOSES ||||||||| ";
         }
-        cout<<setw(maxlength+1)<<p[i].getName()<<"\t | \t"<<lightGreen<<"Cash: "<<setw(7)<<p[i].getCash()<<"\t | \t"<<yellow<<"Wins: "<<setw(5)<<p[i].getWins()<<"\t | \t"<<lightRed<<"Loses: "<<setw(5)<<p[i].getLoses()<<def<<"\n";
+        std::cout<<std::setw(maxlength+1)<<p[i].getName()<<"\t | \t"<<lightGreen<<"Cash: "<<std::setw(7)<<p[i].getCash()<<"\t | \t"<<yellow<<"Wins: "<<std::setw(5)<<p[i].getWins()<<"\t | \t"<<lightRed<<"Loses: "<<std::setw(5)<<p[i].getLoses()<<def<<"\n";
     }
 }
 
 //////////////* File Handling *////
 
 void Statistics::saveStats(){
-    fstream f1;
-    f1.open("data/statistics.bin", ios::out | ios::binary);
+    std::fstream f1;
+    f1.open("data/statistics.bin", std::ios::out | std::ios::binary);
     for(int i=0;i<3;i++){
-        string sName = p[i].getName();
+        std::string sName = p[i].getName();
         int nameSize = sName.size();
         int sCash = p[i].getCash();
         int sWins = p[i].getWins();
@@ -121,10 +117,10 @@ void Statistics::saveStats(){
 }
 
 void Statistics::loadStats(){
-    fstream f1;
-    f1.open("data/statistics.bin", ios::in | ios::binary);
+    std::fstream f1;
+    f1.open("data/statistics.bin", std::ios::in | std::ios::binary);
     for(int i=0;i<3;i++){
-        string sName;
+        std::string sName;
         int nameSize;
         int sCash;
         int sWins;

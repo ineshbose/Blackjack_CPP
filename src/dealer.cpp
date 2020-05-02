@@ -1,8 +1,5 @@
-#include "dealer.hpp"
-#include "card.hpp"
-#include<iostream>
-
-using namespace std;
+#include "headers/dealer.hpp"
+#include <iostream>
 
 // Default Constructor
 Dealer::Dealer(){
@@ -42,13 +39,13 @@ void Dealer::addCard(Card c){
 
 // Prints first card revealed and second card hidden
 void Dealer::printFirstCard(){
-    cout<<"\n";
-    cout<<".------..------."<<"\n";
-    cout<<"|"<<hand[0].getPrintNumber()<<".--. || .--. |"<<"\n";
-    hand[0].printCardL1(); cout<<"|  //  |"<<"\n";
-    hand[0].printCardL2(); cout<<"|  //  |"<<"\n";
-    cout<<"| '--'"<<hand[0].getPrintNumber()<<"|| '--' |"<<"\n";
-    cout<<"`------'`------'"<<"\n";
+    std::cout<<"\n";
+    std::cout<<".------..------."<<"\n";
+    std::cout<<"|"<<hand[0].getPrintNumber()<<".--. || .--. |"<<"\n";
+    hand[0].printCardL1(); std::cout<<"|  //  |"<<"\n";
+    hand[0].printCardL2(); std::cout<<"|  //  |"<<"\n";
+    std::cout<<"| '--'"<<hand[0].getPrintNumber()<<"|| '--' |"<<"\n";
+    std::cout<<"`------'`------'"<<"\n";
 }
 
 // Clears dealer's hand
@@ -59,18 +56,18 @@ void Dealer::clearCards(){
 
 // Prints dealer's cards
 void Dealer::printCards(){
-    cout<<"\n";
+    std::cout<<"\n";
     for(int i=0;i<6;i++){
         for(int j=0;j<hand.size();j++){
             switch(i){
-                case 0: cout<<".------."; break;
-                case 1: cout<<"|"<<hand[j].getPrintNumber()<<".--. |"; break;
+                case 0: std::cout<<".------."; break;
+                case 1: std::cout<<"|"<<hand[j].getPrintNumber()<<".--. |"; break;
                 case 2: hand[j].printCardL1(); break;
                 case 3: hand[j].printCardL2(); break;
-                case 4: cout<<"| '--'"<<hand[j].getPrintNumber()<<"|"; break;
-                case 5: cout<<"`------'";
+                case 4: std::cout<<"| '--'"<<hand[j].getPrintNumber()<<"|"; break;
+                case 5: std::cout<<"`------'";
             }
         }
-        cout<<"\n";
+        std::cout<<"\n";
     }
 }

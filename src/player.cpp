@@ -1,7 +1,5 @@
-#include "player.hpp"
-#include <string.h>
-
-using namespace std;
+#include "headers/player.hpp"
+#include <iostream>
 
 //////////////* Default Constructor *////
 
@@ -17,7 +15,7 @@ Player::Player(){
 //////////////* Getter Functions *////
 
 // Returns name of Player
-string Player::getName(){
+std::string Player::getName(){
     return name;
 }
 
@@ -50,7 +48,7 @@ int Player::getLoses(){
 //////////////* Setter Functions *////
 
 // Sets name of Player
-void Player::setName(string nm){
+void Player::setName(std::string nm){
     name = nm;
 }
 
@@ -116,18 +114,18 @@ void Player::clearCards(){
 
 // Prints player's cards
 void Player::printCards(){
-    cout<<"\n";
+    std::cout<<"\n";
     for(int i=0;i<6;i++){
         for(int j=0;j<hand.size();j++){
             switch(i){
-                case 0: cout<<".------."; break;
-                case 1: cout<<"|"<<hand[j].getPrintNumber()<<".--. |"; break;
+                case 0: std::cout<<".------."; break;
+                case 1: std::cout<<"|"<<hand[j].getPrintNumber()<<".--. |"; break;
                 case 2: hand[j].printCardL1(); break;
                 case 3: hand[j].printCardL2(); break;
-                case 4: cout<<"| '--'"<<hand[j].getPrintNumber()<<"|"; break;
-                case 5: cout<<"`------'";
+                case 4: std::cout<<"| '--'"<<hand[j].getPrintNumber()<<"|"; break;
+                case 5: std::cout<<"`------'";
             }
         }
-        cout<<"\n";
+        std::cout<<"\n";
     }
 }

@@ -1,7 +1,10 @@
+#include <vector>
+#include "card.h"
+
 class Dealer{
     
     private:
-        vector<Card> hand; // Dealer's Cards
+        std::vector<Card> hand; // Dealer's Cards
         int sum;           // Cards' Sum
 
     public:

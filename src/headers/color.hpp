@@ -30,7 +30,7 @@ class Modifier{
   Code code;
 public:
   Modifier(Code pCode) : code(pCode) {}
-  friend ostream &operator<<(ostream &os, const Modifier &mod){
+  friend std::ostream &operator<<(std::ostream &os, const Modifier &mod){
     return os << "\033[" << static_cast<int>(mod.code) << "m";
   }
 };

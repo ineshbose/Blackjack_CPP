@@ -1,20 +1,17 @@
 #include <vector>
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include <time.h>
 #include <algorithm>
-#include "print.hpp"
-#include "color.hpp"
-#include "card.hpp"
-#include "dealer.hpp"
-#include "player.hpp"
-#include "deck.hpp"
-#include "compatible.hpp"
-#include "statistics.hpp"
+#include "headers/compatible.hpp"
+#include "headers/deck.hpp"
+#include "headers/dealer.hpp"
 
-#include "game.hpp"
+#include "headers/player.hpp"
+#include "headers/print.hpp"
+#include "headers/statistics.hpp"
 
-using namespace std;
+#include "headers/game.hpp"
 
 //////////////* Default Constructor *////
 
@@ -47,17 +44,17 @@ bool Game::dealDealer(){
 char Game::compareSum(){
     if(player.getSum()>dealer.getSum()){
         printTop();
-        cout<<lightYellow<<Print::you_win()<<def<<"\n    (Dealer has "<<dealer.getSum()<<")";
+        std::cout<<lightYellow<<Print::you_win()<<def<<"\n    (Dealer has "<<dealer.getSum()<<")";
         return 'p';
     }
     else if(dealer.getSum()>player.getSum()){
         printTop();
-        cout<<lightRed<<Print::dealer_wins()<<def<<"\n    ("<<dealer.getSum()<<")";
+        std::cout<<lightRed<<Print::dealer_wins()<<def<<"\n    ("<<dealer.getSum()<<")";
         return 'd';
     }
     else{
         printTop();
-        cout<<lightMagenta<<Print::draw()<<def;
+        std::cout<<lightMagenta<<Print::draw()<<def;
         return 'n';
     }
 }
@@ -76,7 +73,7 @@ bool Game::checkWins(){
 char Game::checkEnd(){
     if(dealer.getSum()>21 || player.getSum()>21){
         printTop();
-        cout<<red<<Print::bust()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
+        std::cout<<red<<Print::bust()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
         if(dealer.getSum()>21){
             return 'p';
         }
@@ -86,7 +83,7 @@ char Game::checkEnd(){
     }
     else if(dealer.getSum()==21 || player.getSum()==21){
         printTop();
-        cout<<lightGreen<<Print::blackjack()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
+        std::cout<<lightGreen<<Print::blackjack()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
         if(dealer.getSum()==21){
             return 'd';
         }
@@ -101,19 +98,19 @@ char Game::checkEnd(){
 
 void Game::startBet(){
     int b;
-    cout<< "Place your bet!\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
-    cin>>b;
+    std::cout<< "Place your bet!\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
+    std::cin>>b;
     if(player.getCash()>b){
         switch(b){
             case 5:
             case 25:
             case 50:
             case 100: player.setBet(b); break;
-            default: cout<<red<<"Invalid amount.\n"<<def; startBet();
+            default: std::cout<<red<<"Invalid amount.\n"<<def; startBet();
         }
     }
     else{
-        cout<<red<<"Insufficient funds.\n"<<def;
+        std::cout<<red<<"Insufficient funds.\n"<<def;
         startBet();
     }
 }
@@ -128,16 +125,16 @@ int Game::startGame(){
         return 0;
     }
     char choice;
-    cout << lightYellow << "\n\nHit or Stand? [H/S]: "<<def;
-    cin>>choice;
+    std::cout << lightYellow << "\n\nHit or Stand? [H/S]: "<<def;
+    std::cin>>choice;
     while(choice=='H' || choice=='h'){
         player.addCard(deck.deal());
         printBody();
         if (checkWins()){
             return 0;
         }
-        cout << lightYellow << "\n\nHit or Stand? [H/S]: "<<def;
-        cin >> choice;
+        std::cout << lightYellow << "\n\nHit or Stand? [H/S]: "<<def;
+        std::cin >> choice;
     }
     return 1;
 }
@@ -163,20 +160,20 @@ void Game::beginGame(){
                 }
             }
         }
-        cout<<lightRed<<Print::dealer_border()<<def;
+        std::cout<<lightRed<<Print::dealer_border()<<def;
         dealer.printCards();
-        cout<<lightCyan<<Print::player_border()<<def;
+        std::cout<<lightCyan<<Print::player_border()<<def;
         player.printCards();
-        cout << yellow << "\nYour wins: " << player.getWins()<< lightRed <<"\nYour loses: "<<player.getLoses()<<def<<"\n";
+        std::cout << yellow << "\nYour wins: " << player.getWins()<< lightRed <<"\nYour loses: "<<player.getLoses()<<def<<"\n";
         if(s.check(player)){
-            cout<< lightYellow << "High Score!\n"<<def;
+            std::cout<< lightYellow << "High Score!\n"<<def;
         }
-        cout<<"\nContinue playing? [Y/N]: ";
-        cin>>cont;
+        std::cout<<"\nContinue playing? [Y/N]: ";
+        std::cin>>cont;
     }
     char saveChoice;
-    cout<<"\nSave game? [Y/N]: ";
-    cin>>saveChoice;
+    std::cout<<"\nSave game? [Y/N]: ";
+    std::cin>>saveChoice;
     if(saveChoice == 'Y' || saveChoice == 'y'){
         saveGame();
     }
@@ -184,20 +181,20 @@ void Game::beginGame(){
 
 //////////////* Main Method to be Called *////
 
-void Game::beginMenu(bool rep, string message){
+void Game::beginMenu(bool rep, std::string message){
     clearscr();
-    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
-    cout<<Print::begin_menu()<<"\n";
+    std::cout<<yellow<<Print::title_blackjack()<<def<<"\n";
+    std::cout<<Print::begin_menu()<<"\n";
     if(rep){
-        cout<<red<<message<<def<<"\n";
+        std::cout<<red<<message<<def<<"\n";
     }
     char c;
-    cout<<"Input : ";
-    cin>>c;
+    std::cout<<"Input : ";
+    std::cin>>c;
     switch(c){
         case '1': char nm[100];
-                  cout<<"Enter player name: ";
-                  cin>>nm;
+                  std::cout<<"Enter player name: ";
+                  std::cin>>nm;
                   player.setName(nm);
                   beginGame();
                   break;
@@ -219,31 +216,31 @@ void Game::beginMenu(bool rep, string message){
 //////////////* Data File Handling *////
 
 void Game::saveGame(){
-    fstream f1,f2;
-    string filename;
-    string path = "data/";
+    std::fstream f1,f2;
+    std::string filename;
+    std::string path = "data/";
     do{
-    cout<<"Enter filename: ";
-    cin>>filename;
-    transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+    std::cout<<"Enter filename: ";
+    std::cin>>filename;
+    std::transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
     }while(filename.compare("statistics")==0);
     path+=filename+".bin";
-    string sName = player.getName();
+    std::string sName = player.getName();
     int sCash = player.getCash();
     int sWins = player.getWins();
     int sLoses = player.getLoses();
     int nameSize = sName.size();
-    f2.open(path, ios::in | ios::binary);
+    f2.open(path, std::ios::in | std::ios::binary);
     if(!f2.fail()){
         char choice;
-        cout<<red<<"File already exists."<<def<<" Do you want to overwrite it? [Y/N]: ";
-        cin>>choice;
+        std::cout<<red<<"File already exists."<<def<<" Do you want to overwrite it? [Y/N]: ";
+        std::cin>>choice;
         if(choice == 'N' || choice == 'n'){
             saveGame();
         }
     }
     f2.close();
-    f1.open(path, ios::out | ios::binary);
+    f1.open(path, std::ios::out | std::ios::binary);
     f1.write((char*)&nameSize, sizeof(nameSize));
     f1.write(sName.c_str(), sName.size());
     f1.write((char*)&sCash, sizeof(sCash));
@@ -253,18 +250,18 @@ void Game::saveGame(){
 }
 
 void Game::loadGame(){
-    fstream f1;
-    string filename;
-    string path = "data/";
+    std::fstream f1;
+    std::string filename;
+    std::string path = "data/";
     do{
-    cout<<"Enter filename: ";
-    cin>>filename;
-    transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
+    std::cout<<"Enter filename: ";
+    std::cin>>filename;
+    std::transform(filename.begin(), filename.end(), filename.begin(), ::tolower);
     }while(filename.compare("statistics")==0);
     path+=filename+".bin";
-    f1.open(path, ios::in | ios::binary);
+    f1.open(path, std::ios::in | std::ios::binary);
     if(!f1.fail()){
-        string sName;
+        std::string sName;
         int sCash;
         int sWins;
         int sLoses;
@@ -294,33 +291,33 @@ void Game::loadGame(){
 
 void Game::printStatistics(){
     clearscr();
-    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
-    cout<<"\n"<<lightGreen<<Print::statistics()<<def<<"\n";
+    std::cout<<yellow<<Print::title_blackjack()<<def<<"\n";
+    std::cout<<"\n"<<lightGreen<<Print::statistics()<<def<<"\n";
     s.print();
-    cout<<"\n\n\t(Press any key to continue)\n";
+    std::cout<<"\n\n\t(Press any key to continue)\n";
     getch();
 }
 
 void Game::printInstructions(){
     clearscr();
-    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
-    cout<<"\n"<<lightGreen<<Print::instructions()<<def<<"\n";
+    std::cout<<yellow<<Print::title_blackjack()<<def<<"\n";
+    std::cout<<"\n"<<lightGreen<<Print::instructions()<<def<<"\n";
     getch();
 }
 
 void Game::printTop(){
     clearscr();
-    cout<<yellow<<Print::title_blackjack()<<def<<"\n";
-    cout<<lightRed<<"\t\tCards: "<<deck.getSize()<<lightGreen<<"\t\tCash: "<<player.getCash()<<lightBlue<<"\t\tName: "<<player.getName()<<def<<"\n\n\n";
+    std::cout<<yellow<<Print::title_blackjack()<<def<<"\n";
+    std::cout<<lightRed<<"\t\tCards: "<<deck.getSize()<<lightGreen<<"\t\tCash: "<<player.getCash()<<lightBlue<<"\t\tName: "<<player.getName()<<def<<"\n\n\n";
 }
 
 void Game::printBody(){
     printTop();
-    cout<<lightRed<<Print::dealer_border()<<def;
+    std::cout<<lightRed<<Print::dealer_border()<<def;
     dealer.printFirstCard();
-    cout<<lightCyan<<Print::player_border()<<def;
+    std::cout<<lightCyan<<Print::player_border()<<def;
     player.printCards();
-    cout << lightGreen<< "\nSum: "<<lightRed<< player.getSum()<<def;
+    std::cout << lightGreen<< "\nSum: "<<lightRed<< player.getSum()<<def;
 }
 
 int main(){

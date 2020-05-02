@@ -1,17 +1,21 @@
+#include <string>
+#include "player.hpp"
+#include "color.hpp"
+
 class PlayerSet{
 
     private:
-        string name;             // Name of Player
+        std::string name;             // Name of Player
         int cash, wins, loses;   // Stat Data
         // This class is almost similar to Player, but does not need vectors and betting values.
 
     public:
         PlayerSet();
-        string getName();
+        std::string getName();
         int getCash();
         int getWins();
         int getLoses();
-        void setValues(string nm, int c, int w, int l);
+        void setValues(std::string nm, int c, int w, int l);
 
 };
 

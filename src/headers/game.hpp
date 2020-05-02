@@ -1,3 +1,5 @@
+#include <string>
+
 class Game{
 
     private:
@@ -15,7 +17,7 @@ class Game{
         void startBet();
         int startGame();
         void beginGame();
-        void beginMenu(bool rep, string message);
+        void beginMenu(bool rep, std::string message);
         void saveGame();
         void loadGame();
         void printStatistics();

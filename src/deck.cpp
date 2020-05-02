@@ -1,6 +1,6 @@
 #include <algorithm>
-#include "deck.hpp"
-#include "card.hpp"
+#include <iostream>
+#include "headers/deck.hpp"
 
 // Constructs a Deck
 void Deck::initializeDeck(){

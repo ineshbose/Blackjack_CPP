@@ -1,3 +1,6 @@
+#ifndef CARD_H
+#define CARD_H
+
 class Card{
     
     private:
@@ -23,3 +26,5 @@ class Card{
         void printCardL1();
         void printCardL2();
 };
+
+#endif
