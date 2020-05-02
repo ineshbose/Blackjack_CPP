@@ -1,2 +1,2 @@
 language = "cpp"
-run = "cd build && cmake .. && make && ./blackjack"
+run = "make && ./blackjack"
