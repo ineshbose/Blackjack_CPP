@@ -1,3 +1,11 @@
+#ifndef GAME_HPP
+#define GAME_HPP
+
+#include "deck.hpp"
+#include "dealer.hpp"
+#include "player.hpp"
+#include "print.hpp"
+#include "statistics.hpp"
 #include <string>
 
 class Game{
@@ -25,3 +33,5 @@ class Game{
         void printTop();
         void printBody();
 };
+
+#endif

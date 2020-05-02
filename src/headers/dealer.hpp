@@ -1,11 +1,14 @@
-#include <vector>
+#ifndef DEALER_HPP
+#define DEALER_HPP
+
 #include "card.h"
+#include <vector>
 
 class Dealer{
     
     private:
-        std::vector<Card> hand; // Dealer's Cards
-        int sum;           // Cards' Sum
+        std::vector<Card> hand;  // Dealer's Cards
+        int sum;                 // Cards' Sum
 
     public:
         Dealer();
@@ -16,3 +19,5 @@ class Dealer{
         void clearCards();
         void printCards();
 };
+
+#endif

@@ -1,7 +1,7 @@
+#include "headers/statistics.hpp"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-#include "headers/statistics.hpp"
 
 //////////////* Default Constructor *////
 

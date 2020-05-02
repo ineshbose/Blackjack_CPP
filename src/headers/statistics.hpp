@@ -1,6 +1,9 @@
-#include <string>
+#ifndef STATISTICS_HPP
+#define STATISTICS_HPP
+
 #include "player.hpp"
 #include "color.hpp"
+#include <string>
 
 class PlayerSet{
 
@@ -32,3 +35,5 @@ class Statistics{
         void loadStats();
 
 };
+
+#endif

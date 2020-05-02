@@ -1,6 +1,6 @@
-#include <sstream>
-#include <iostream>
 #include "headers/print.hpp"
+#include <iostream>
+#include <sstream>
 
 std::string Print::title_blackjack(){
     constexpr auto title_blackjack = R"(

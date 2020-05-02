@@ -17,29 +17,7 @@ $ cd Blackjack_CPP
 else you can download a [ZIP](https://github.com/ineshbose/Blackjack_CPP/archive/master.zip).
 
 ### Running the Program
-The main file in this repository, as the name would suggest, is `main.cpp`.
-
-#### Windows
-You **must** have [MinGW](http://www.mingw.org/) installed with the correct packages in order to compile C++ and then should use
-```
-> g++ main.cpp
-```
-which will create an executable file (usually named `a.exe`) that you can run by double-clicking or using
-```
-> a.exe
-```
-Hopefully, you can also compile `main.cpp` using an IDE.
-
-#### Linux
-You **must** have a gcc or g++ compiler which can be installed using
-```
-$ sudo apt-get install build-essential
-```
-and then compile and run (assuming the file is named `a.out`) using
-```
-$ g++ main.cpp
-$ ./a.out
-```
+<i>Working on this right now, however, you can use `g++` or `make` in your terminal.</i>
 
 ### Contributing
 Any kind of contributions / improvements are greatly appreciated!

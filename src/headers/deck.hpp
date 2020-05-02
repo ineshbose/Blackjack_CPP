@@ -1,5 +1,8 @@
-#include <vector>
+#ifndef DECK_HPP
+#define DECK_HPP
+
 #include "card.h"
+#include <vector>
 
 class Deck{
 
@@ -11,3 +14,5 @@ class Deck{
         int getSize();
         Card deal();
 };
+
+#endif

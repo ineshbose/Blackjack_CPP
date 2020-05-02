@@ -1,3 +1,6 @@
+#ifndef PRINT_HPP
+#define PRINT_HPP
+
 #include <string>
 
 struct Print{
@@ -15,3 +18,5 @@ struct Print{
     static std::string player_border();
 
 };
+
+#endif

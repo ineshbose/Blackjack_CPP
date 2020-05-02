@@ -1,4 +1,8 @@
+#ifndef COLOR_HPP
+#define COLOR_HPP
+
 #include <ostream>
+
 
 namespace Color{
 enum class Code{
@@ -53,3 +57,7 @@ static Color::Modifier lightYellow(Color::Code::FG_LIGHT_YELLOW);
 static Color::Modifier lightBlue(Color::Code::FG_LIGHT_BLUE);
 static Color::Modifier lightMagenta(Color::Code::FG_LIGHT_MAGENTA);
 static Color::Modifier lightCyan(Color::Code::FG_LIGHT_CYAN);
+
+#endif
+
+// Extracted from https://github.com/plibither8/2048.cpp

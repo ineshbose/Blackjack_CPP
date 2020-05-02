@@ -1,17 +1,9 @@
+#include "headers/game.hpp"
+#include "headers/compatible.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <time.h>
 #include <algorithm>
-#include "headers/compatible.hpp"
-#include "headers/deck.hpp"
-#include "headers/dealer.hpp"
-
-#include "headers/player.hpp"
-#include "headers/print.hpp"
-#include "headers/statistics.hpp"
-
-#include "headers/game.hpp"
 
 //////////////* Default Constructor *////
 
@@ -318,15 +310,4 @@ void Game::printBody(){
     std::cout<<lightCyan<<Print::player_border()<<def;
     player.printCards();
     std::cout << lightGreen<< "\nSum: "<<lightRed<< player.getSum()<<def;
-}
-
-int main(){
-
-    srand(time(NULL));  // To seed rand() function across all files
-
-    Game game;          // Constructs object GAME
-    game.beginMenu(false, "");  // Begins with the interface
-
-    return 0;           // Return integer value at end of main()
-
 }
