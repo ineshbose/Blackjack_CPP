@@ -1,0 +1,25 @@
+dist: xenial
+sudo: false
+language: cpp
+
+git:
+  depth: 3
+  quiet: true
+
+matrix:
+  include:
+  - os: linux
+  - os: osx
+  - os: windows
+    install:
+    - cd build
+    - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
+    - cmake --build .
+
+install:
+- cd build
+- cmake ..
+- cmake --build .
+
+script:
+- echo 5 | ./blackjack
