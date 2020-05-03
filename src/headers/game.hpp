@@ -22,7 +22,7 @@ class Game{
         char compareSum();
         bool checkWins();
         char checkEnd();
-        void startBet();
+        int startBet();
         int startGame();
         void beginGame();
         void beginMenu(bool rep, std::string message);

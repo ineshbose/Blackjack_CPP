@@ -88,22 +88,28 @@ char Game::checkEnd(){
 
 //////////////* Game Starters *////
 
-void Game::startBet(){
-    int b;
-    std::cout<< "Place your bet!\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
-    std::cin>>b;
-    if(player.getCash()>b){
-        switch(b){
-            case 5:
-            case 25:
-            case 50:
-            case 100: player.setBet(b); break;
-            default: std::cout<<red<<"Invalid amount.\n"<<def; startBet();
+int Game::startBet(){
+    if(player.getCash()>0){
+        int b;
+        std::cout<< "Place your bet!\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
+        std::cin>>b;
+        if(player.getCash()>=b){
+            switch(b){
+                case 5:
+                case 25:
+                case 50:
+                case 100: player.setBet(b); break;
+                default: std::cout<<red<<"Invalid amount.\n"<<def; startBet();
+            }
         }
+        else{
+            std::cout<<red<<"Insufficient funds.\n"<<def;
+            startBet();
+        }
+        return 1;
     }
     else{
-        std::cout<<red<<"Insufficient funds.\n"<<def;
-        startBet();
+        return 0;
     }
 }
 
@@ -132,15 +138,18 @@ int Game::startGame(){
 }
 
 void Game::beginGame(){
-    char cont = 'Y';
-    while(cont!='N' && cont!='n'){
+    char cont;
+    do{
         if(deck.getSize()<36){
                 deck.initializeDeck();
         }
         printTop();
         player.clearCards();
         dealer.clearCards();
-        startBet();
+        if(startBet()==0){
+            std::cout<<lightRed<<"\nBankrupt! Game over."<<def;
+            break;
+        }
         if (startGame() == 1){
             if (dealDealer()){
                 switch (compareSum()){
@@ -162,7 +171,7 @@ void Game::beginGame(){
         }
         std::cout<<"\nContinue playing? [Y/N]: ";
         std::cin>>cont;
-    }
+    } while (cont != 'N' && cont != 'n');
     char saveChoice;
     std::cout<<"\nSave game? [Y/N]: ";
     std::cin>>saveChoice;

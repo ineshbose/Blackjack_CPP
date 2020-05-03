@@ -72,7 +72,7 @@ std::string Print::instructions(){
             ( ( / /                                                                 / /.) ) . 
             \ \ / \  5. If you reach 21, you got a blackjack.                     / / \ / .
             \ \') )                                                             ( (,\ \ . 
-            / \ / /  6. Blackjack means you win 1.5 the amount you bet.           \ / \ \ .
+            / \ / /  6. A higher sum means you win twice the amount you bet.      \ / \ \ .
             ( ( / /                                                                 / /.) ) .
             \ \ / \       _       _ (Press any key to continue) _       _         / / \ /.
             \ `.\ `-._,-'_`-._,-'_`-._,-'_`-._,-'_`-._,-'_`-._,-'_`-._-'_`-._,-'_/,\ \ . 

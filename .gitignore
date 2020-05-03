@@ -30,3 +30,31 @@
 *.exe
 *.out
 *.app
+
+# CMake
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Meson
+meson-log.txt
+build.dat
+coredata.dat
+install.dat
+meson_benchmark_setup.dat
+meson_test_setup.dat
+sanitycheckcpp.cc
+.ninja_deps
+.ninja_log
+build.ninja
+
+# Misc
+blackjack

@@ -1,14 +1,13 @@
 # Blackjack (C++)
-![AppVeyor](https://img.shields.io/appveyor/build/ineshbose/blackjack-cpp?label=AppVeyor&style=flat-square)
-![Travis (.org)](https://img.shields.io/travis/ineshbose/blackjack_cpp?label=Travis&style=flat-square)
-![Codacy grade](https://img.shields.io/codacy/grade/760d6c817b324726898e79ded9aa807e?style=flat-square)
-![GitHub](https://img.shields.io/github/license/ineshbose/Blackjack_CPP?style=flat-square)
-[![Run on Repl.it](https://repl.it/badge/github/ineshbose/blackjack_cpp)](https://repl.it/github/ineshbose/blackjack_cpp)
+[![AppVeyor](https://img.shields.io/appveyor/build/ineshbose/blackjack-cpp?label=AppVeyor&style=flat-square&logo=appveyor)](https://ci.appveyor.com/project/ineshbose/blackjack-cpp)
+[![Travis (.org)](https://img.shields.io/travis/ineshbose/blackjack_cpp?label=Travis&style=flat-square&logo=travis-ci)](https://travis-ci.org/github/ineshbose/blackjack_cpp)
+[![Codacy grade](https://img.shields.io/codacy/grade/760d6c817b324726898e79ded9aa807e?style=flat-square&logo=codacy)](https://app.codacy.com/manual/ineshbose/Blackjack_CPP)
+[![GitHub](https://img.shields.io/github/license/ineshbose/Blackjack_CPP?style=flat-square)](LICENSE)
+[![Run on Repl.it](https://img.shields.io/badge/run_on_repl.it--lightgrey?style=flat-square&logo=repl.it)](https://repl.it/github/ineshbose/blackjack_cpp)
 
 Developed in order to repolish my C++ skills and as my first C++ repository. Have had many memories playing blackjack while being drunk with flatmates during the first year of uni.
 
-
-<img style="display: block; margin-left: auto; margin-right: auto; width: 60%;" alt="Blackjack Demo" src="data/demo.gif" />
+<img style="display: block; margin-left: auto; margin-right: auto;" alt="Blackjack Demo" src="data/demo.gif" />
 
 
 ## Setup
