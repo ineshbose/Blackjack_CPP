@@ -36,12 +36,12 @@ bool Game::dealDealer(){
 char Game::compareSum(){
     if(player.getSum()>dealer.getSum()){
         printTop();
-        std::cout<<lightYellow<<Print::you_win()<<def<<"\n    (Dealer has "<<dealer.getSum()<<")";
+        std::cout<<lightYellow<<Print::you_win()<<def<<"\n    (Dealer has "<<dealer.getSum()<<")\n";
         return 'p';
     }
     else if(dealer.getSum()>player.getSum()){
         printTop();
-        std::cout<<lightRed<<Print::dealer_wins()<<def<<"\n    ("<<dealer.getSum()<<")";
+        std::cout<<lightRed<<Print::dealer_wins()<<def<<"\n    ("<<dealer.getSum()<<")\n";
         return 'd';
     }
     else{
@@ -65,7 +65,7 @@ bool Game::checkWins(){
 char Game::checkEnd(){
     if(dealer.getSum()>21 || player.getSum()>21){
         printTop();
-        std::cout<<red<<Print::bust()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
+        std::cout<<red<<Print::bust()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]\n";
         if(dealer.getSum()>21){
             return 'p';
         }
@@ -75,7 +75,7 @@ char Game::checkEnd(){
     }
     else if(dealer.getSum()==21 || player.getSum()==21){
         printTop();
-        std::cout<<lightGreen<<Print::blackjack()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]";
+        std::cout<<lightGreen<<Print::blackjack()<<def<<"\n    [Dealer : "<<dealer.getSum()<<" | "<<player.getName()<<" : "<<player.getSum()<<"]\n";
         if(dealer.getSum()==21){
             return 'd';
         }
@@ -88,53 +88,53 @@ char Game::checkEnd(){
 
 //////////////* Game Starters *////
 
-int Game::startBet(){
+bool Game::startBet(){
     if(player.getCash()>0){
-        int b;
-        std::cout<< "Place your bet!\n\t"<<red<<"5\t"<<green<<"25\t"<<blue<<"50\t"<<magenta<<"100\t\n"<<def;
-        std::cin>>b;
-        if(player.getCash()>=b){
-            switch(b){
-                case 5:
-                case 25:
-                case 50:
-                case 100: player.setBet(b); break;
-                default: std::cout<<red<<"Invalid amount.\n"<<def; startBet();
+        while(true){
+            printTop();
+            std::cout<<"Place your bet!\t\t $"<<green<<player.getBet()<<def<<"\n[W = Raise Bet | S = Decrease Bet | R = Done]\n";
+            int c = toupper(getch());
+            switch(c){
+                case 87: if(player.getCash()>=5){
+                            player.setBet(5);
+                         }
+                         break;
+                case 83: if(player.getBet()>=5){
+                            player.setBet(-5);
+                         }
+                         break;
             }
+            if(c==82) break;
         }
-        else{
-            std::cout<<red<<"Insufficient funds.\n"<<def;
-            startBet();
-        }
-        return 1;
+        return true;
     }
     else{
-        return 0;
+        return false;
     }
 }
 
-int Game::startGame(){
+bool Game::startGame(){
     player.addCard(deck.deal());
     dealer.addCard(deck.deal());
     player.addCard(deck.deal());
     dealer.addCard(deck.deal());
     printBody();
     if(checkWins()){
-        return 0;
+        return false;
     }
-    char choice;
-    std::cout << lightYellow << "\n\nHit or Stand? [H/S]: "<<def;
-    std::cin>>choice;
-    while(choice=='H' || choice=='h'){
-        player.addCard(deck.deal());
-        printBody();
-        if (checkWins()){
-            return 0;
+    while(true){
+        std::cout << lightYellow << "\n\nH : Hit | S : Stand\n"<<def;
+        int c = toupper(getch());
+        if(c==72){
+            player.addCard(deck.deal());
+            printBody();
+            if(checkWins()) return false;
         }
-        std::cout << lightYellow << "\n\nHit or Stand? [H/S]: "<<def;
-        std::cin >> choice;
+        else if(c==83){
+            break;
+        }
     }
-    return 1;
+    return true;
 }
 
 void Game::beginGame(){
@@ -143,14 +143,13 @@ void Game::beginGame(){
         if(deck.getSize()<36){
                 deck.initializeDeck();
         }
-        printTop();
         player.clearCards();
         dealer.clearCards();
-        if(startBet()==0){
-            std::cout<<lightRed<<"\nBankrupt! Game over."<<def;
+        if(!startBet()){
+            std::cout<<lightRed<<"\nBankrupt! Game over.\n"<<def;
             break;
         }
-        if (startGame() == 1){
+        if (startGame()){
             if (dealDealer()){
                 switch (compareSum()){
                 case 'p': player.incrementWins(); 
@@ -309,7 +308,8 @@ void Game::printInstructions(){
 void Game::printTop(){
     clearscr();
     std::cout<<yellow<<Print::title_blackjack()<<def<<"\n";
-    std::cout<<lightRed<<"\t\tCards: "<<deck.getSize()<<lightGreen<<"\t\tCash: "<<player.getCash()<<lightBlue<<"\t\tName: "<<player.getName()<<def<<"\n\n\n";
+    std::cout<<lightRed<<"\t\tCards: "<<deck.getSize()<<lightGreen<<" \tCash: "<<player.getCash()<<lightMagenta
+             <<" \tBet: "<<player.getBet()<<lightBlue<<" \tName: "<<player.getName()<<def<<"\n\n\n";
 }
 
 void Game::printBody(){

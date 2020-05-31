@@ -7,7 +7,7 @@
 
 Developed in order to repolish my C++ skills and as my first C++ repository. Have had many memories playing blackjack while being drunk with flatmates during the first year of uni.
 
-<img style="display: block; margin-left: auto; margin-right: auto;" alt="Blackjack Demo" src="data/demo.gif" />
+<center><img alt="Blackjack Demo" src="data/demo.gif" /></center>
 
 
 ## Setup

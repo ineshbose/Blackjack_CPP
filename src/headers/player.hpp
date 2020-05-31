@@ -22,7 +22,7 @@ public:
     int getWins();
     int getLoses();
     void setName(std::string nm);
-    bool setBet(int b);
+    void setBet(int b);
     void addCash(int c);
     void incrementWins();
     void incrementLoses();

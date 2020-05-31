@@ -22,8 +22,8 @@ class Game{
         char compareSum();
         bool checkWins();
         char checkEnd();
-        int startBet();
-        int startGame();
+        bool startBet();
+        bool startGame();
         void beginGame();
         void beginMenu(bool rep, std::string message);
         void saveGame();

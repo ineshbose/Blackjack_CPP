@@ -58,3 +58,4 @@ build.ninja
 
 # Misc
 blackjack
+*.bin

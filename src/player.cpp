@@ -53,15 +53,9 @@ void Player::setName(std::string nm){
 }
 
 // Sets bet for game
-bool Player::setBet(int b){
-    if(b<=cash){
-        cash-=b;
-        bet=b;
-        return true;
-    }
-    else{
-        return false;
-    }
+void Player::setBet(int b){
+    cash-=b;
+    bet+=b;
 }
 
 // Adds cash to Player's cash amount
@@ -110,6 +104,7 @@ void Player::addCard(Card c){
 void Player::clearCards(){
     hand.clear();
     sum=0;
+    bet=0;
 }
 
 // Prints player's cards
