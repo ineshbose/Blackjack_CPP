@@ -318,5 +318,5 @@ void Game::printBody(){
     dealer.printFirstCard();
     std::cout<<lightCyan<<Print::player_border()<<def;
     player.printCards();
-    std::cout << lightGreen<< "\nSum: "<<lightRed<< player.getSum()<<def;
+    std::cout << lightGreen<< "\nSum: "<<lightRed<< player.getSum()<<def<<"\n";
 }

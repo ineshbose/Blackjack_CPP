@@ -1,23 +1,12 @@
 #ifndef DEALER_HPP
 #define DEALER_HPP
 
-#include "card.h"
-#include <vector>
+#include "human.hpp"
 
-class Dealer{
-    
-    private:
-        std::vector<Card> hand;  // Dealer's Cards
-        int sum;                 // Cards' Sum
+class Dealer: public Human{
 
     public:
-        Dealer();
-        int getSum();
-        void switchAce();
-        void addCard(Card c);
         void printFirstCard();
-        void clearCards();
-        void printCards();
 };
 
 #endif
